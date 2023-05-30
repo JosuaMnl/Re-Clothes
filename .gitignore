@@ -1,3 +1,10 @@
 /fabrics
 /Unclassified
 /Utilities
+/Defect Detection/test/
+/Defect Detection/train/
+/Defect Detection/valid/
+/Defect Detection/runs/
+/test
+/valid
+/yolov8n_saved_model

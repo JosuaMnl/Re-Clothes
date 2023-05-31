@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ReClothes</string>
+    <string name="placeholder_search">Cari di Re-Clothes</string>
 </resources>

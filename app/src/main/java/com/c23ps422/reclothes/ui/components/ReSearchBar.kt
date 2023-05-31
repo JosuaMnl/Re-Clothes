@@ -24,7 +24,7 @@ import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 
 @Composable
-fun SearchBar(
+fun ReSearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -64,9 +64,9 @@ fun SearchBar(
 
 @Preview(showBackground = true)
 @Composable
-fun SearchBarPreview() {
+fun ReSearchBarPreview() {
     ReClothesTheme {
-        SearchBar(
+        ReSearchBar(
             query = "",
             onQueryChange = {}
         )

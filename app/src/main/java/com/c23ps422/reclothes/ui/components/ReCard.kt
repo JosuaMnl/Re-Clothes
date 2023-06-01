@@ -48,11 +48,11 @@ fun ReCard(
                     .clip(RoundedCornerShape(10.dp)),
             )
             Text(
-                modifier = Modifier.padding(2.dp),
+                modifier = Modifier.padding(4.dp),
                 text = "Stylish Bag",
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                fontSize = 12.sp,
+                fontSize = 8.sp,
             )
         }
     }

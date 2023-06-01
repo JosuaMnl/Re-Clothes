@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ReClothes</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_detect">Detect</string>
+    <string name="menu_scanClothes"></string>
+    <string name="menu_transaction">Transaction</string>
+    <string name="menu_medals">Medals</string>
 </resources>

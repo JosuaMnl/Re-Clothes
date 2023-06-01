@@ -5,4 +5,5 @@
     <string name="menu_scanClothes"></string>
     <string name="menu_transaction">Transaction</string>
     <string name="menu_medals">Medals</string>
+    <string name="placeholder_search">Cari di Re-Clothes</string>
 </resources>

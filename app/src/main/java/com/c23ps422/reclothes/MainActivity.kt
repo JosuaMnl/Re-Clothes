@@ -1,4 +1,4 @@
-    package com.c23ps422.reclothes
+package com.c23ps422.reclothes
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.components
+package com.c23ps422.reclothes.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -13,9 +13,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 import com.c23ps422.reclothes.R
+import com.c23ps422.reclothes.ui.components.BottomBar
+import com.c23ps422.reclothes.ui.components.ReCard
+import com.c23ps422.reclothes.ui.components.ReSearchBar
 
 @Composable
-fun HomeComponent(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -85,6 +88,6 @@ fun HomeComponent(modifier: Modifier = Modifier) {
 @Composable
 fun HomeComponentPreview() {
     ReClothesTheme {
-        HomeComponent()
+        HomeScreen()
     }
 }

@@ -7,4 +7,10 @@
     <string name="menu_medals">Medals</string>
     <string name="placeholder_search">Cari di Re-Clothes</string>
     <string name="placeholder_label">Placeholder label</string>
+    <string name="welcome_reclothes">Welcome to Reclothes!</string>
+    <string name="welcome_description">Sell your unused clothes and explore \n interesting upcycling ideas</string>
+    <string name="welcome_register">Register</string>
+    <string name="welcome_login">Login</string>
+    <string name="login_message">Login into Reclothes!</string>
+    <string name="register_message">Let\'s make a new account!</string>
 </resources>

@@ -24,7 +24,13 @@ fun Login(modifier: Modifier = Modifier) {
 
     LazyColumn(modifier = modifier.padding(horizontal = 14.dp)) {
         item {
-            Text(text = "ReClothes", fontWeight = FontWeight.Bold, fontSize = 32.sp)
+            Text(
+                text = stringResource(R.string.app_name),
+                fontWeight = FontWeight.Bold,
+                fontSize = 32.sp,
+                modifier = Modifier
+                    .padding(4.dp)
+            )
             Spacer(modifier = Modifier.height(64.dp))
             Image(
                 painter = painterResource(R.drawable.ic_launcher_background),
@@ -37,7 +43,7 @@ fun Login(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(R.string.register_message),
                 fontWeight = FontWeight.Bold,
-                fontSize =24.sp,
+                fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )

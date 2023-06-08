@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,10 +28,10 @@ fun ReCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier.width(90.dp),
-        shape = RoundedCornerShape(10.dp),
-        backgroundColor = Color.Transparent,
+        modifier = modifier.width(140.dp),
+        shape = RoundedCornerShape(8.dp),
         onClick = {},
+
         ) {
         Column {
             Image(
@@ -38,15 +40,17 @@ fun ReCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(90.dp)
-                    .clip(RoundedCornerShape(10.dp)),
+                    .height(120.dp)
+                    .clip(RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)),
             )
             Text(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.padding(8.dp),
                 text = "Stylish Bag",
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                fontSize = 8.sp,
+                style = MaterialTheme.typography.subtitle1.copy(
+                    fontWeight = FontWeight.ExtraBold
+                )
             )
         }
     }

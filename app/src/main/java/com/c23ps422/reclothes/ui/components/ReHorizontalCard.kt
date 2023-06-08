@@ -11,7 +11,9 @@ import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 @Composable
 fun ReHorizontalCard(modifier: Modifier = Modifier) {
     Card(
-        onClick = {}
+        onClick = {
+
+        }
     ) {
 
     }

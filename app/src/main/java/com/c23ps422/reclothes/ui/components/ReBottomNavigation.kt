@@ -84,6 +84,11 @@ fun ReBottomNavigation(navController: NavHostController, modifier: Modifier = Mo
                 alwaysShowLabel = false,
                 selected = currentRoute == item.screen.route,
                 onClick = {
+                    if (currentRoute != Screen.Home.route) {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(navController.graph.startDestinationId)
+                        }
+                    }
                     navController.navigate(item.screen.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true

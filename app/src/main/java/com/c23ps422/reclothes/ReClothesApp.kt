@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -38,12 +40,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.navigation.NavigationItem
 import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.HomeContent
+import com.c23ps422.reclothes.ui.screen.HomeScreen
 import com.c23ps422.reclothes.ui.screen.MedalsScreen
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
+import com.c23ps422.reclothes.ui.viewmodel.DIYViewModel
+import com.c23ps422.reclothes.ui.viewmodel.MedalsViewModel
+import com.c23ps422.reclothes.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -99,7 +107,7 @@ fun ReClothesApp(
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) {
-                    HomeContent()
+                    HomeScreen()
                 }
                 composable(Screen.Detect.route) {
 
@@ -115,10 +123,10 @@ fun ReClothesApp(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ReClothesAppPreview() {
-    ReClothesTheme {
-        ReClothesApp()
-    }
-}
+//    @Preview(showBackground = true)
+//    @Composable
+//    fun ReClothesAppPreview() {
+//        ReClothesTheme {
+//            ReClothesApp()
+//        }
+//    }

@@ -14,9 +14,10 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MedalsViewModel::class.java)) {
             return MedalsViewModel(repository as MedalsRepository) as T
-        }
-        if (modelClass.isAssignableFrom(DIYViewModel::class.java)) {
+        } else if (modelClass.isAssignableFrom(DIYViewModel::class.java)) {
             return DIYViewModel(repository as DIYRepository) as T
+        } else if (modelClass.isAssignableFrom(DetailDIYViewModel::class.java)) {
+            return DetailDIYViewModel(repository as DIYRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

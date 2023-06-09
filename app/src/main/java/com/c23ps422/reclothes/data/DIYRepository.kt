@@ -6,7 +6,7 @@ import com.c23ps422.reclothes.model.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class DIYRepository: Repository {
+class DIYRepository : Repository {
     private val diy = mutableListOf<DIY>()
 
     init {
@@ -19,6 +19,12 @@ class DIYRepository: Repository {
 
     fun getAllDIY(): Flow<List<DIY>> {
         return flowOf(diy)
+    }
+
+    fun getDiyById(diyId: Int): DIY {
+        return diy.first {
+            it.id == diyId
+        }
     }
 
     companion object {

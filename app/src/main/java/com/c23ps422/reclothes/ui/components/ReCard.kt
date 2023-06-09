@@ -32,8 +32,6 @@ fun ReCard(
     Card(
         modifier = modifier.width(140.dp),
         shape = RoundedCornerShape(8.dp),
-        onClick = {},
-
         ) {
         Column {
             AsyncImage(

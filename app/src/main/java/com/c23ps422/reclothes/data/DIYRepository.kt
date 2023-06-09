@@ -1,24 +1,30 @@
 package com.c23ps422.reclothes.data
 
-import com.c23ps422.reclothes.model.Medals
-import com.c23ps422.reclothes.model.MedalsSource
+import com.c23ps422.reclothes.model.DIY
+import com.c23ps422.reclothes.model.DIYSource
 import com.c23ps422.reclothes.model.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class MedalsRepository: Repository {
-    private val medals = mutableListOf<Medals>()
+class DIYRepository : Repository {
+    private val diy = mutableListOf<DIY>()
 
     init {
-        if (medals.isEmpty()) {
-            MedalsSource.dummyMedals.forEach {
-                medals.add(it)
+        if (diy.isEmpty()) {
+            DIYSource.dummyDIY.forEach {
+                diy.add(it)
             }
         }
     }
 
-    fun getAllMedals(): Flow<List<Medals>> {
-        return flowOf(medals)
+    fun getAllDIY(): Flow<List<DIY>> {
+        return flowOf(diy)
+    }
+
+    fun getDiyById(diyId: Int): DIY {
+        return diy.first {
+            it.id == diyId
+        }
     }
 
     companion object {

@@ -41,14 +41,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
-import com.c23ps422.reclothes.ui.screen.HomeContent
+import com.c23ps422.reclothes.ui.screen.DetailDIYScreen
+import com.c23ps422.reclothes.ui.screen.HomeScreen
 import com.c23ps422.reclothes.ui.screen.MedalsScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
@@ -85,7 +88,7 @@ fun ReClothesApp(
     var radioStatus by remember {
         mutableStateOf(0)
     }
-    
+
     ModalBottomSheetLayout(
         sheetState = sheetState,
         sheetContent = {
@@ -142,19 +145,25 @@ fun ReClothesApp(
     ) {
         Scaffold(
             bottomBar = {
-                ReBottomNavigation(navController = navController)
+                // Tsukifell: While the page on DetailDIY screen, hide the bottomBar
+                if (currentDestination?.route != Screen.DetailDIY.route) {
+                    ReBottomNavigation(navController = navController)
+                }
             },
             floatingActionButton = {
-                FloatingActionButton(onClick = {
-                    scope.launch {
-                        if (sheetState.isVisible) {
-                            sheetState.hide()
-                        } else {
-                            sheetState.show()
+                // Tsukifell: While the page on DetailDIY screen, hide the fab too
+                if (currentDestination?.route != Screen.DetailDIY.route) {
+                    FloatingActionButton(onClick = {
+                        scope.launch {
+                            if (sheetState.isVisible) {
+                                sheetState.hide()
+                            } else {
+                                sheetState.show()
+                            }
                         }
+                    }) {
+                        Icon(imageVector = Icons.Default.Add, contentDescription = "fab")
                     }
-                }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "fab")
                 }
             },
             floatingActionButtonPosition = FabPosition.Center,
@@ -167,7 +176,11 @@ fun ReClothesApp(
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) {
-                    HomeContent()
+                    HomeScreen(
+                        navigateToDetail = { diyId ->
+                            navController.navigate(Screen.DetailDIY.createRoute(diyId))
+                        }
+                    )
                 }
                 composable(Screen.Detect.route) {
 
@@ -180,6 +193,13 @@ fun ReClothesApp(
                 }
                 composable(Screen.DataAllClothes.route) {
                     DataAllClothesScreen()
+                }
+                composable(
+                    route = Screen.DetailDIY.route,
+                    arguments = listOf(navArgument("diyId") { type = NavType.IntType }),
+                ) {
+                    val id = it.arguments?.getInt("diyId") ?: -1
+                    DetailDIYScreen(diyId = id, navigateBack = { navController.navigateUp() })
                 }
             }
         }

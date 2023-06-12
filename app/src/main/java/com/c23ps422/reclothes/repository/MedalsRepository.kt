@@ -1,8 +1,7 @@
-package com.c23ps422.reclothes.data
+package com.c23ps422.reclothes.repository
 
-import com.c23ps422.reclothes.model.Medals
-import com.c23ps422.reclothes.model.MedalsSource
-import com.c23ps422.reclothes.model.Repository
+import com.c23ps422.reclothes.model.medals.Medals
+import com.c23ps422.reclothes.model.medals.MedalsSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

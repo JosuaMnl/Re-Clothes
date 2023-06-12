@@ -1,18 +1,23 @@
-package com.c23ps422.reclothes.ui.screen
+package com.c23ps422.reclothes.ui.screen.diy
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,16 +36,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.common.UiState
-import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
-import com.c23ps422.reclothes.ui.viewmodel.DetailDIYViewModel
-import com.c23ps422.reclothes.ui.viewmodel.ViewModelFactory
 
 @Composable
 fun DetailDIYScreen(
     diyId: Int,
     diyViewModel: DetailDIYViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideDIYRepository())
+        factory = DetailDIYViewModel.provideFactory()
     ),
     navigateBack: () -> Unit,
 ) {

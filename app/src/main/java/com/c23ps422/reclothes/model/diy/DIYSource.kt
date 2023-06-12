@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.model
+package com.c23ps422.reclothes.model.diy
 
 object DIYSource {
     val dummyDIY = listOf(

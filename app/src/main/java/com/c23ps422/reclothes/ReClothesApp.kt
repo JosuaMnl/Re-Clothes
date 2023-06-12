@@ -50,9 +50,10 @@ import androidx.navigation.navArgument
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
-import com.c23ps422.reclothes.ui.screen.DetailDIYScreen
 import com.c23ps422.reclothes.ui.screen.HomeScreen
-import com.c23ps422.reclothes.ui.screen.MedalsScreen
+import com.c23ps422.reclothes.ui.screen.diy.DetailDIYScreen
+import com.c23ps422.reclothes.ui.screen.medals.MedalsScreen
+import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 import kotlinx.coroutines.launch
@@ -129,12 +130,12 @@ fun ReClothesApp(
                 ReButtonFullRounded(
                     text = "Continue",
                     onClick = {
+                        scope.launch {
+                            sheetState.hide()
+                        }
                         if (radioStatus == 0) {
-
+                            navController.navigate(Screen.ChooseImage.route)
                         } else if (radioStatus == 1) {
-                            scope.launch {
-                                sheetState.hide()
-                            }
                             navController.navigate(Screen.DataAllClothes.route)
                         }
                     }
@@ -146,7 +147,7 @@ fun ReClothesApp(
         Scaffold(
             bottomBar = {
                 // Tsukifell: While the page on DetailDIY screen, hide the bottomBar
-                if (currentDestination?.route != Screen.DetailDIY.route) {
+                if (currentRoute != Screen.DetailDIY.route) {
                     ReBottomNavigation(navController = navController)
                 }
             },
@@ -193,6 +194,9 @@ fun ReClothesApp(
                 }
                 composable(Screen.DataAllClothes.route) {
                     DataAllClothesScreen()
+                }
+                composable(Screen.ChooseImage.route){
+                    ChooseImage()
                 }
                 composable(
                     route = Screen.DetailDIY.route,

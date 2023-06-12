@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.model
+package com.c23ps422.reclothes.model.medals
 
 data class Medals(
     val id: Int,

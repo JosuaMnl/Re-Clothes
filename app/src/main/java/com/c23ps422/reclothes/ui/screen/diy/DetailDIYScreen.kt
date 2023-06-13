@@ -65,6 +65,7 @@ fun DetailDIYScreen(
             }
 
             is UiState.Error -> {}
+            else -> {}
         }
     }
 }

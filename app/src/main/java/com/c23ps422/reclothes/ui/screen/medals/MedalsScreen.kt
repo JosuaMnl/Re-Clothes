@@ -37,6 +37,7 @@ fun MedalsScreen(
             }
 
             is UiState.Error -> {}
+            else -> {}
         }
     }
 }

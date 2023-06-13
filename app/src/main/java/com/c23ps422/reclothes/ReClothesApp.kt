@@ -38,7 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -52,6 +51,7 @@ import com.c23ps422.reclothes.data.ReClothesPreference
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
+import com.c23ps422.reclothes.ui.screen.DetectScreen
 import com.c23ps422.reclothes.ui.screen.HomeScreen
 import com.c23ps422.reclothes.ui.screen.Register
 import com.c23ps422.reclothes.ui.screen.SplashScreen
@@ -66,6 +66,8 @@ import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.io.File
+import java.util.concurrent.ExecutorService
 
 /**
  * This is the root composable function for the ReClothes app.
@@ -83,6 +85,9 @@ import kotlinx.coroutines.launch
  */
 @Composable
 fun ReClothesApp(
+    outputDirectory: File,
+    cameraExecutor: ExecutorService,
+    modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
     val context = LocalContext.current
@@ -97,7 +102,7 @@ fun ReClothesApp(
     }
 
     if (splashScreenFinished) {
-        NavGraph(navController = navController, pref = pref)
+        NavGraph(navController = navController, pref = pref, outputDirectory = outputDirectory, camerExecutor = cameraExecutor)
     }
 }
 
@@ -128,7 +133,9 @@ fun ReClothesApp(
 fun NavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    pref: ReClothesPreference
+    pref: ReClothesPreference,
+    outputDirectory: File,
+    camerExecutor: ExecutorService,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -147,7 +154,6 @@ fun NavGraph(
             activity?.finish()
         }
     }
-
 
 
     val noBottomBarFab = listOf(
@@ -203,7 +209,8 @@ fun NavGraph(
                                 sheetState.show()
                             }
                         }
-                    }) {
+                    }
+                    ) {
                         Icon(imageVector = Icons.Default.Add, contentDescription = "fab")
                     }
                 }
@@ -225,7 +232,17 @@ fun NavGraph(
                     )
                 }
                 composable(Screen.Detect.route) {
+                    DetectScreen(
+                        outputDirectory = outputDirectory,
+                        cameraExecutor = camerExecutor,
+                        onImageCaptured = { uri ->
 
+                        },
+                        onError = { exception ->
+
+                        }
+
+                    )
                 }
                 composable(Screen.Transaction.route) {
 
@@ -361,13 +378,5 @@ fun SheetContent(
             text = "Continue",
             onClick = { onContinueClick(radioStatus) }
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ReClothesAppPreview() {
-    ReClothesTheme {
-        ReClothesApp()
     }
 }

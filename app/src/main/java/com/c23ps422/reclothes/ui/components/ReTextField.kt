@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,7 +23,7 @@ fun ReTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     colors: TextFieldColors = TextFieldDefaults.textFieldColors()
 ) {
-    TextField(
+    OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(label) },
@@ -31,10 +32,11 @@ fun ReTextField(
             .padding(vertical = 4.dp),
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = MaterialTheme.colors.surface,
-            disabledIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-        )
+            disabledIndicatorColor = MaterialTheme.colors.primary,
+            focusedIndicatorColor = MaterialTheme.colors.primary,
+            unfocusedIndicatorColor = MaterialTheme.colors.primary,
+        ),
+        visualTransformation = visualTransformation
     )
 }
 

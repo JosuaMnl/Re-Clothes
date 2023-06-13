@@ -9,4 +9,5 @@ sealed class Screen(val route: String) {
         fun createRoute(diyId: Int) = "home/$diyId"
     }
     object DataAllClothes: Screen("dataAllClothes")
+    object ChooseImage: Screen("chooseImage")
 }

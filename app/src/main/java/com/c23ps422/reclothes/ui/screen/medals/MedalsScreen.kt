@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen
+package com.c23ps422.reclothes.ui.screen.medals
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -15,16 +15,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.di.Injection
-import com.c23ps422.reclothes.model.Medals
+import com.c23ps422.reclothes.model.medals.Medals
 import com.c23ps422.reclothes.ui.components.ReMedal
-import com.c23ps422.reclothes.ui.viewmodel.MedalsViewModel
-import com.c23ps422.reclothes.ui.viewmodel.ViewModelFactory
+import com.c23ps422.reclothes.common.ViewModelFactory
 
 @Composable
 fun MedalsScreen(
     modifier: Modifier = Modifier,
     viewModel: MedalsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
-        factory = ViewModelFactory(Injection.provideMedalsRepository())
+        factory = ViewModelFactory.getInstance(Injection.provideMedalsRepository())
     )
 ) {
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->

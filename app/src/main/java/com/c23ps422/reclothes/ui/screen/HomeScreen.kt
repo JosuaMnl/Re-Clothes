@@ -14,24 +14,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.common.ViewModelFactory
 import com.c23ps422.reclothes.di.Injection
-import com.c23ps422.reclothes.model.DIY
-import com.c23ps422.reclothes.model.Medals
+import com.c23ps422.reclothes.model.diy.DIY
+import com.c23ps422.reclothes.model.medals.Medals
 import com.c23ps422.reclothes.ui.components.ReCard
 import com.c23ps422.reclothes.ui.components.ReSearchBar
-import com.c23ps422.reclothes.ui.viewmodel.DIYViewModel
-import com.c23ps422.reclothes.ui.viewmodel.MedalsViewModel
-import com.c23ps422.reclothes.ui.viewmodel.ViewModelFactory
+import com.c23ps422.reclothes.ui.screen.diy.DIYViewModel
+import com.c23ps422.reclothes.ui.screen.medals.MedalsViewModel
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     medalsViewModel: MedalsViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideMedalsRepository())
+        factory = MedalsViewModel.provideFactory()
     ),
     diyViewModel: DIYViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideDIYRepository())
+        factory = DIYViewModel.provideFactory()
     ),
     navigateToDetail: (Int) -> Unit
 ) {
@@ -49,6 +48,7 @@ fun HomeScreen(
             val medalsData = (medalsState as UiState.Success).data
             HomeContent(diy = diyData, medals = medalsData, navigateToDetail = navigateToDetail)
         }
+
         diyState is UiState.Error || medalsState is UiState.Error -> {
 
         }

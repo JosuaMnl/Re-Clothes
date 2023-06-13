@@ -123,6 +123,7 @@ fun ReSelect2(modifier: Modifier = Modifier) {
 
 @Composable
 fun ReDropdownMenuSelect(
+    text: String,
     items: List<String>,
     selectedItem: String,
     onItemSelected: (String) -> Unit,
@@ -130,7 +131,10 @@ fun ReDropdownMenuSelect(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    Box(modifier = modifier.fillMaxSize().padding(16.dp)) { // Use fillMaxSize() modifier
+    Text(text = text)
+    Box(modifier = modifier
+        .fillMaxSize()
+        .padding(16.dp)) { // Use fillMaxSize() modifier
         Text(
             text = selectedItem,
             modifier = Modifier
@@ -145,7 +149,9 @@ fun ReDropdownMenuSelect(
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            Box(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)) {
                 IconButton(
                     onClick = { expanded = false },
                     modifier = Modifier.align(Alignment.TopStart)
@@ -182,6 +188,7 @@ fun ReSelectPreview() {
             Spacer(modifier = Modifier.height(16.dp))
             ReSelect2()
             ReDropdownMenuSelect(
+                text = "Pilih merek pakaian yang kamu jual",
                 items = items,
                 selectedItem = selectedItem,
                 onItemSelected = { item ->

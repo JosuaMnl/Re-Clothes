@@ -1,8 +1,7 @@
-package com.c23ps422.reclothes.data
+package com.c23ps422.reclothes.repository
 
-import com.c23ps422.reclothes.model.DIY
-import com.c23ps422.reclothes.model.DIYSource
-import com.c23ps422.reclothes.model.Repository
+import com.c23ps422.reclothes.model.diy.DIY
+import com.c23ps422.reclothes.model.diy.DIYSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

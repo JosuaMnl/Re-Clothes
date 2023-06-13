@@ -26,7 +26,6 @@ fun ReButtonFullRounded(
             .fillMaxWidth()
             .height(42.dp),
         shape = RoundedCornerShape(50.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
     ) {
         Text(
             text = text,

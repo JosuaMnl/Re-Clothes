@@ -51,15 +51,19 @@ import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.DetailDIYScreen
+import com.c23ps422.reclothes.ui.screen.DetectScreen
 import com.c23ps422.reclothes.ui.screen.HomeScreen
 import com.c23ps422.reclothes.ui.screen.MedalsScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
-import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 import kotlinx.coroutines.launch
+import java.io.File
+import java.util.concurrent.ExecutorService
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ReClothesApp(
+    outputDirectory: File,
+    camerExecutor: ExecutorService,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -146,13 +150,21 @@ fun ReClothesApp(
         Scaffold(
             bottomBar = {
                 // Tsukifell: While the page on DetailDIY screen, hide the bottomBar
-                if (currentDestination?.route != Screen.DetailDIY.route) {
+                if (currentDestination?.route !in listOf(
+                        Screen.DetailDIY.route,
+                        Screen.Detect.route
+                    )
+                ) {
                     ReBottomNavigation(navController = navController)
                 }
             },
             floatingActionButton = {
                 // Tsukifell: While the page on DetailDIY screen, hide the fab too
-                if (currentDestination?.route != Screen.DetailDIY.route) {
+                if (currentDestination?.route !in listOf(
+                        Screen.DetailDIY.route,
+                        Screen.Detect.route
+                    )
+                ) {
                     FloatingActionButton(onClick = {
                         scope.launch {
                             if (sheetState.isVisible) {
@@ -183,7 +195,17 @@ fun ReClothesApp(
                     )
                 }
                 composable(Screen.Detect.route) {
+                    DetectScreen(
+                        outputDirectory = outputDirectory,
+                        cameraExecutor = camerExecutor,
+                        onImageCaptured = { uri ->
 
+                        },
+                        onError = { exception ->
+
+                        }
+
+                    )
                 }
                 composable(Screen.Transaction.route) {
 
@@ -217,10 +239,10 @@ fun Context.findActivity(): Activity? {
     return null
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ReClothesAppPreview() {
-    ReClothesTheme {
-        ReClothesApp()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ReClothesAppPreview() {
+//    ReClothesTheme {
+//        ReClothesApp()
+//    }
+//}

@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import java.io.File
 import java.text.SimpleDateFormat
@@ -47,8 +48,10 @@ fun DetectScreen(
     cameraExecutor: ExecutorService,
     onImageCaptured: (Uri) -> Unit,
     onError: (ImageCaptureException) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+    val navigateToPreview = remember { mutableStateOf(false) }
+
     val lensFacing = CameraSelector.LENS_FACING_BACK
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -94,6 +97,7 @@ fun DetectScreen(
                     onImageCaptured = { uri ->
                         capturedImageUri.value = uri
                         onImageCaptured(uri)
+                        Log.d("Checkmehere", capturedImageUri.value.toString())
                     },
                     onError = onError
                 )
@@ -110,9 +114,6 @@ fun DetectScreen(
                 )
             }
         )
-
-        Image(painter = rememberAsyncImagePainter(capturedImageUri.value),
-            contentDescription = null, modifier = Modifier.fillMaxSize())
     }
 }
 

@@ -3,6 +3,10 @@ package com.c23ps422.reclothes
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.net.Uri
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -55,6 +59,7 @@ import com.c23ps422.reclothes.ui.screen.diy.DetailDIYScreen
 import com.c23ps422.reclothes.ui.screen.medals.MedalsScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
+import com.c23ps422.reclothes.ui.screen.saleprocess.PreviewTakenImage
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.concurrent.ExecutorService
@@ -63,10 +68,12 @@ import java.util.concurrent.ExecutorService
 @Composable
 fun ReClothesApp(
     outputDirectory: File,
-    camerExecutor: ExecutorService,
+    cameraExecutor: ExecutorService,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
+    val capturedImageUri = remember { mutableStateOf<Uri?>(null) }
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -138,7 +145,12 @@ fun ReClothesApp(
                         }
                         if (radioStatus == 0) {
                             navController.navigate(Screen.ChooseImage.route)
+                            Log.d(
+                                "Choosen",
+                                "Radiostatus with $radioStatus is clicked"
+                            ) //take this into
                         } else if (radioStatus == 1) {
+                            Log.d("Choosen", "Radiostatus with $radioStatus is clicked")
                             navController.navigate(Screen.DataAllClothes.route)
                         }
                     }
@@ -152,7 +164,8 @@ fun ReClothesApp(
                 // Tsukifell: While the page on DetailDIY screen, hide the bottomBar
                 if (currentDestination?.route !in listOf(
                         Screen.DetailDIY.route,
-                        Screen.Detect.route
+                        Screen.TakeImage.route,
+                        Screen.PreviewTakenImage.route
                     )
                 ) {
                     ReBottomNavigation(navController = navController)
@@ -162,7 +175,8 @@ fun ReClothesApp(
                 // Tsukifell: While the page on DetailDIY screen, hide the fab too
                 if (currentDestination?.route !in listOf(
                         Screen.DetailDIY.route,
-                        Screen.Detect.route
+                        Screen.TakeImage.route,
+                        Screen.PreviewTakenImage.route
                     )
                 ) {
                     FloatingActionButton(onClick = {
@@ -195,17 +209,6 @@ fun ReClothesApp(
                     )
                 }
                 composable(Screen.Detect.route) {
-                    DetectScreen(
-                        outputDirectory = outputDirectory,
-                        cameraExecutor = camerExecutor,
-                        onImageCaptured = { uri ->
-
-                        },
-                        onError = { exception ->
-
-                        }
-
-                    )
                 }
                 composable(Screen.Transaction.route) {
 
@@ -216,8 +219,29 @@ fun ReClothesApp(
                 composable(Screen.DataAllClothes.route) {
                     DataAllClothesScreen()
                 }
-                composable(Screen.ChooseImage.route){
-                    ChooseImage()
+                composable(Screen.PreviewTakenImage.route) {
+                    PreviewTakenImage(photoUri = capturedImageUri.value)
+                }
+                composable(Screen.ChooseImage.route) {
+                    ChooseImage {
+                        navController.navigate(Screen.TakeImage.route)
+                    }
+                }
+                composable(Screen.TakeImage.route) {
+                    DetectScreen(
+                        outputDirectory = outputDirectory,
+                        cameraExecutor = cameraExecutor,
+                        onImageCaptured = { uri ->
+                            capturedImageUri.value = uri
+                            Log.d("Navigation", "Navigating to PreviewTakenImage with URI: $uri")
+                            Handler(Looper.getMainLooper()).post {
+                                navController.navigate(Screen.PreviewTakenImage.route)
+                            }
+                        },
+                        onError = { exception ->
+
+                        },
+                    )
                 }
                 composable(
                     route = Screen.DetailDIY.route,

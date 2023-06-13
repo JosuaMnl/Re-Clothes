@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     ReClothesApp(
                         outputDirectory = outputDirectory,
-                        camerExecutor = cameraExecutor
+                        cameraExecutor = cameraExecutor
                     )
 //                    if (shouldShowCamera.value) {
 //                        CameraView(

@@ -1,5 +1,6 @@
 package com.c23ps422.reclothes.ui.screen.saleprocess
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,10 @@ import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 
 @Composable
-fun ChooseImage(modifier: Modifier = Modifier) {
+fun ChooseImage(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -45,7 +49,8 @@ fun ChooseImage(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             OutlinedButton(
-                onClick = {})
+                onClick = onClick
+            )
             {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -60,12 +65,16 @@ fun ChooseImage(modifier: Modifier = Modifier) {
             }
 
             OutlinedButton(
-                onClick = {}) {
+                onClick = {  }
+            ) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(painter = painterResource(id = R.drawable.gallery), contentDescription = null)
+                    Icon(
+                        painter = painterResource(id = R.drawable.gallery),
+                        contentDescription = null
+                    )
                     Text(text = "Gallery")
                 }
             }
@@ -81,10 +90,10 @@ fun ChooseImage(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ChooseImagePreview() {
-    ReClothesTheme {
-        ChooseImage()
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun ChooseImagePreview() {
+//    ReClothesTheme {
+//        ChooseImage()
+//    }
+//}

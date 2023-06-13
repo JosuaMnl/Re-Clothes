@@ -71,5 +71,4 @@ class LoginViewModel(private val pref: ReClothesPreference, context: Application
             }
         }
     }
-
 }

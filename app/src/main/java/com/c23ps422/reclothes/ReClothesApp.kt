@@ -57,7 +57,7 @@ import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.DetectScreen
 import com.c23ps422.reclothes.ui.screen.HomeScreen
-import com.c23ps422.reclothes.ui.screen.Register
+import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.SplashScreen
 import com.c23ps422.reclothes.ui.screen.Welcome
 import com.c23ps422.reclothes.ui.screen.diy.DetailDIYScreen
@@ -67,7 +67,6 @@ import com.c23ps422.reclothes.ui.screen.medals.MedalsScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.PreviewTakenImage
-import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -312,7 +311,7 @@ fun NavGraph(
                 }
 
                 composable(Screen.Register.route) {
-                    Register()
+                    Register(navController)
                 }
             }
         }

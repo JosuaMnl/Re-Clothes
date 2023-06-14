@@ -15,8 +15,8 @@ object Injection {
         return DIYRepository()
     }
 
-//    fun provideUserRepository(context: Context): UserRepository {
-//        val apiService = ApiConfig.getApiService(context)
-//        return UserRepository.getInstance(apiService)
-//    }
+    fun provideUserRepository(context: Context): UserRepository {
+        val apiService = ApiConfig.getApiService(context)
+        return UserRepository.getInstance(apiService)
+    }
 }

@@ -66,9 +66,7 @@ fun ProfileContent(
                         .padding(top = 8.dp)
                         .fillMaxWidth()
                 )
-
             }
         }
     }
-
 }

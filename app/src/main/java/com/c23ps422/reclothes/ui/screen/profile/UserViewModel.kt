@@ -1,53 +1,45 @@
 package com.c23ps422.reclothes.ui.screen.profile
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.c23ps422.reclothes.api.ApiService
 import com.c23ps422.reclothes.common.UiState
-import com.c23ps422.reclothes.data.ReClothesPreference
+import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.model.response.UserProfileResponse
+import com.c23ps422.reclothes.repository.UserRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class UserViewModel(
-    private val apiService: ApiService,
-    private val pref: ReClothesPreference,
-    context: Application
-) :
-    AndroidViewModel(context) {
+    private val repository: UserRepository
+) : ViewModel(){
 
-    private val _userProfileState = MutableStateFlow<UiState<UserProfileResponse>>(UiState.Loading)
-    val userProfileState: StateFlow<UiState<UserProfileResponse>> get() = _userProfileState
+    private val _uiState: MutableStateFlow<UiState<UserProfileResponse>> =
+        MutableStateFlow(UiState.Loading)
+    val uiState: StateFlow<UiState<UserProfileResponse>> get() = _uiState
 
-    fun getUser() {
-        viewModelScope.launch {
-            try {
-                val userProfileResponse = apiService.getUser()
-                _userProfileState.value = UiState.Success(userProfileResponse)
-            } catch (e: Exception) {
-                _userProfileState.value = UiState.Error("An error has occurred: ${e.message}")
-            }
-        }
+    init {
+        getUser()
     }
 
-    fun getToken() {
+    private fun getUser() {
         viewModelScope.launch {
-            pref.getToken()
+            repository.getUser().catch {e ->
+                _uiState.value = UiState.Error(e.message.toString())
+            }.collect { data ->
+                _uiState.value = UiState.Success(data)
+            }
         }
     }
 
     companion object {
         fun provideFactory(
-            apiService: ApiService,
-            pref: ReClothesPreference,
-            context: Application
+            context: Context,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return UserViewModel(apiService, pref, context) as T
+                return UserViewModel(Injection.provideUserRepository(context)) as T
             }
         }
     }

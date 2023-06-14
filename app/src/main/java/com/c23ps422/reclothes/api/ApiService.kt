@@ -42,4 +42,15 @@ interface ApiService {
         @Part original_image: MultipartBody.Part,
         @Part("user_cloth_id") user_cloth_id: RequestBody,
     ): UploadClothResponse
+
+    @FormUrlEncoded
+    @PUT("user/update")
+    suspend fun updateUser(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("account_number") account_number: String,
+        @Field("address") address: String,
+        @Field("phone_number") phone_number: String,
+        @Field("account_type") account_type: String
+    ): UserProfileResponse
 }

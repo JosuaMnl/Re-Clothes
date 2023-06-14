@@ -46,7 +46,7 @@ import com.c23ps422.reclothes.ui.screen.profile.UserViewModel
 import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
-import com.c23ps422.reclothes.ui.screen.saleprocess.PreviewTakenImage
+import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PreviewTakenImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -126,7 +126,7 @@ fun NavGraph(
     outputDirectory: File,
     cameraExecutor: ExecutorService,
 ) {
-    val capturedImageUri = remember { mutableStateOf<Uri?>(null) }
+    var capturedImage by remember { mutableStateOf<File?>(null) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -175,6 +175,7 @@ fun NavGraph(
         sheetState = sheetState,
         sheetContent = {
             SheetContent(
+                pref = pref,
                 navController = navController,
                 userViewModel = userViewModel,
                 createUserClothViewModel = createUserClothViewModel,
@@ -244,7 +245,8 @@ fun NavGraph(
                 }
 
                 composable(Screen.PreviewTakenImage.route) {
-                    PreviewTakenImage(photoUri = capturedImageUri.value)
+//                    val uri = capturedImageUri?.let { Uri.fromFile(it) }
+                    PreviewTakenImage(pref = pref, photo = capturedImage)
                 }
 
                 composable(Screen.ChooseImage.route) {
@@ -257,9 +259,9 @@ fun NavGraph(
                     DetectScreen(
                         outputDirectory = outputDirectory,
                         cameraExecutor = cameraExecutor,
-                        onImageCaptured = { uri ->
-                            capturedImageUri.value = uri
-                            Log.d("Navigation", "Navigating to PreviewTakenImage with URI: $uri")
+                        onImageCaptured = { file ->
+                            capturedImage = file
+                            Log.d("Navigation", "Navigating to PreviewTakenImage with URI: $file")
                             Handler(Looper.getMainLooper()).post {
                                 navController.navigate(Screen.PreviewTakenImage.route)
                             }
@@ -346,6 +348,7 @@ fun Context.findActivity(): Activity? {
  */
 @Composable
 fun SheetContent(
+    pref: ReClothesPreference,
     navController: NavController,
     userViewModel: UserViewModel,
     createUserClothViewModel: CreateUserClothViewModel,
@@ -438,6 +441,7 @@ fun SheetContent(
                     // Navigate to the specified screen.
                     // This code will only be executed once when the UiState becomes Success,
                     // regardless of how many times the composable gets recomposed.
+                    pref.saveId(uiState.data.data.userClothes.id)
                     navController.navigate(screen)
                 }
             }

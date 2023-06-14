@@ -27,9 +27,21 @@ class ReClothesPreference private constructor(private val dataStore: DataStore<P
         }
     }
 
+    fun getId(): Flow<String?> {
+        return dataStore.data.map { pref ->
+            pref[ID_KEY]
+        }
+    }
+
     suspend fun saveToken(token: String) {
         dataStore.edit { pref ->
             pref[TOKEN_KEY] = token
+        }
+    }
+
+    suspend fun saveId(id: String) {
+        dataStore.edit { pref ->
+            pref[ID_KEY] = id
         }
     }
 
@@ -44,6 +56,7 @@ class ReClothesPreference private constructor(private val dataStore: DataStore<P
      * It has a method to get the Singleton instance, initializing it if it doesn't already exist.
      */
     companion object {
+        val ID_KEY = stringPreferencesKey("id")
         val TOKEN_KEY = stringPreferencesKey("token")
         @Volatile
         private var INSTANCE: ReClothesPreference? = null

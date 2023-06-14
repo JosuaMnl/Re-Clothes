@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -35,13 +37,13 @@ import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.*
-import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.diy.DetailDIYScreen
 import com.c23ps422.reclothes.ui.screen.login.Login
 import com.c23ps422.reclothes.ui.screen.login.dataStore
 import com.c23ps422.reclothes.ui.screen.medals.MedalsScreen
 import com.c23ps422.reclothes.ui.screen.profile.UserScreen
 import com.c23ps422.reclothes.ui.screen.profile.UserViewModel
+import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.PreviewTakenImage
@@ -69,7 +71,6 @@ import java.util.concurrent.ExecutorService
 fun ReClothesApp(
     outputDirectory: File,
     cameraExecutor: ExecutorService,
-    modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
 
@@ -135,6 +136,7 @@ fun NavGraph(
     val context = LocalContext.current
 
     val userViewModel: UserViewModel = viewModel(factory = UserViewModel.provideFactory(context))
+
     val createUserClothViewModel: CreateUserClothViewModel =
         viewModel(factory = CreateUserClothViewModel.provideFactory(context))
 
@@ -173,19 +175,12 @@ fun NavGraph(
         sheetState = sheetState,
         sheetContent = {
             SheetContent(
+                navController = navController,
                 userViewModel = userViewModel,
-                onContinueClick = { radioStatus ->
+                createUserClothViewModel = createUserClothViewModel,
+                onContinueClick = {
                     scope.launch {
                         sheetState.hide()
-                    }
-                    val userId = userViewModel.userId
-                    Log.d("User ID", "User ID: $userId")
-                    if (radioStatus == 0) {
-                        val amount_of_clothes = "small"
-                        Log.d("AOC", amount_of_clothes)
-                        createUserClothViewModel.createUserCloth(userId, amount_of_clothes)
-                    } else if (radioStatus == 1) {
-                        navController.navigate(Screen.DataAllClothes.route)
                     }
                 })
         },
@@ -306,29 +301,6 @@ fun NavGraph(
         }
     }
 
-    createUserClothViewModel.uiState.collectAsState().value.let { uiState ->
-        when (uiState) {
-            is UiState.Idle -> {}
-
-            is UiState.Loading -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
-                }
-            }
-
-            is UiState.Success -> {
-                Log.d("Checkthis", uiState.data.data.userClothes.id)
-                Log.d("Checkthis", uiState.data.data.userClothes.userId)
-                Log.d("Checkthis", uiState.data.data.userClothes.amountOfClothes)
-                navController.navigate(Screen.ChooseImage.route)
-            }
-
-            is UiState.Error -> {
-
-            }
-        }
-    }
-
     LaunchedEffect(Unit) {
         when (pref.getToken().first()) {
             null -> navController.navigate(Screen.Welcome.route) {
@@ -374,8 +346,10 @@ fun Context.findActivity(): Activity? {
  */
 @Composable
 fun SheetContent(
+    navController: NavController,
     userViewModel: UserViewModel,
-    onContinueClick: (Int) -> Unit,
+    createUserClothViewModel: CreateUserClothViewModel,
+    onContinueClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val radioOptions = listOf(
@@ -387,6 +361,15 @@ fun SheetContent(
         mutableStateOf(0)
     }
 
+    var amountOfClothes by remember {
+        mutableStateOf("")
+    }
+
+    var screen by remember {
+        mutableStateOf("")
+    }
+
+    val userId by remember { mutableStateOf(userViewModel.userId) }
 
     Column(
         modifier = modifier
@@ -421,10 +404,47 @@ fun SheetContent(
                 )
             }
         }
+
+        amountOfClothes = if (radioStatus == 0) "small" else "bulk"
+        screen = if (radioStatus == 0) Screen.ChooseImage.route else Screen.DataAllClothes.route
+
         Spacer(modifier = Modifier.size(8.dp))
         ReButtonFullRounded(
             text = "Continue",
-            onClick = { onContinueClick(radioStatus) }
+            onClick = {
+                onContinueClick()
+                // Post Data
+                createUserClothViewModel.createUserCloth(userId, amountOfClothes)
+            }
         )
+    }
+
+    val context = LocalContext.current
+    createUserClothViewModel.uiState.collectAsState().value.let { uiState ->
+        when (uiState) {
+            is UiState.Idle -> {}
+
+            is UiState.Loading -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            // When the UI state is success
+            is UiState.Success -> {
+                // Use LaunchedEffect to start a new coroutine which will survive recompositions.
+                // When UiState changes, a new coroutine is launched (the old one is cancelled)
+                LaunchedEffect(uiState) {
+                    // Navigate to the specified screen.
+                    // This code will only be executed once when the UiState becomes Success,
+                    // regardless of how many times the composable gets recomposed.
+                    navController.navigate(screen)
+                }
+            }
+
+            is UiState.Error -> {
+                Toast.makeText(context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

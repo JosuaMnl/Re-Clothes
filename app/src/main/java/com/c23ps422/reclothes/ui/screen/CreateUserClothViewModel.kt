@@ -18,7 +18,7 @@ class CreateUserClothViewModel(
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<UiState<CreateUserClothResponse>> =
-        MutableStateFlow(UiState.Loading)
+        MutableStateFlow(UiState.Idle)
     val uiState: StateFlow<UiState<CreateUserClothResponse>> get() = _uiState
 
     fun createUserCloth(user_id: String, amount_of_clothes: String) {

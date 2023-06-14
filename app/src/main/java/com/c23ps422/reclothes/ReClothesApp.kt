@@ -9,41 +9,19 @@ import android.os.Looper
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.RadioButton
-import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberModalBottomSheetState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -51,20 +29,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.data.ReClothesPreference
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
-import com.c23ps422.reclothes.ui.screen.DetectScreen
-import com.c23ps422.reclothes.ui.screen.HomeScreen
+import com.c23ps422.reclothes.ui.screen.*
 import com.c23ps422.reclothes.ui.screen.register.Register
-import com.c23ps422.reclothes.ui.screen.SplashScreen
-import com.c23ps422.reclothes.ui.screen.Welcome
 import com.c23ps422.reclothes.ui.screen.diy.DetailDIYScreen
 import com.c23ps422.reclothes.ui.screen.login.Login
 import com.c23ps422.reclothes.ui.screen.login.dataStore
 import com.c23ps422.reclothes.ui.screen.medals.MedalsScreen
 import com.c23ps422.reclothes.ui.screen.profile.UserScreen
+import com.c23ps422.reclothes.ui.screen.profile.UserViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.PreviewTakenImage
@@ -157,6 +134,10 @@ fun NavGraph(
 
     val context = LocalContext.current
 
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModel.provideFactory(context))
+    val createUserClothViewModel: CreateUserClothViewModel =
+        viewModel(factory = CreateUserClothViewModel.provideFactory(context))
+
     val activity = context.findActivity()
 
     val currentDestination = navBackStackEntry?.destination
@@ -191,16 +172,22 @@ fun NavGraph(
     ModalBottomSheetLayout(
         sheetState = sheetState,
         sheetContent = {
-            SheetContent(onContinueClick = { radioStatus ->
-                scope.launch {
-                    sheetState.hide()
-                }
-                if (radioStatus == 0) {
-                    navController.navigate(Screen.ChooseImage.route)
-                } else if (radioStatus == 1) {
-                    navController.navigate(Screen.DataAllClothes.route)
-                }
-            })
+            SheetContent(
+                userViewModel = userViewModel,
+                onContinueClick = { radioStatus ->
+                    scope.launch {
+                        sheetState.hide()
+                    }
+                    val userId = userViewModel.userId
+                    Log.d("User ID", "User ID: $userId")
+                    if (radioStatus == 0) {
+                        val amount_of_clothes = "small"
+                        Log.d("AOC", amount_of_clothes)
+                        createUserClothViewModel.createUserCloth(userId, amount_of_clothes)
+                    } else if (radioStatus == 1) {
+                        navController.navigate(Screen.DataAllClothes.route)
+                    }
+                })
         },
         sheetShape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
     ) {
@@ -319,6 +306,29 @@ fun NavGraph(
         }
     }
 
+    createUserClothViewModel.uiState.collectAsState().value.let { uiState ->
+        when (uiState) {
+            is UiState.Idle -> {}
+
+            is UiState.Loading -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            is UiState.Success -> {
+                Log.d("Checkthis", uiState.data.data.userClothes.id)
+                Log.d("Checkthis", uiState.data.data.userClothes.userId)
+                Log.d("Checkthis", uiState.data.data.userClothes.amountOfClothes)
+                navController.navigate(Screen.ChooseImage.route)
+            }
+
+            is UiState.Error -> {
+
+            }
+        }
+    }
+
     LaunchedEffect(Unit) {
         when (pref.getToken().first()) {
             null -> navController.navigate(Screen.Welcome.route) {
@@ -364,7 +374,8 @@ fun Context.findActivity(): Activity? {
  */
 @Composable
 fun SheetContent(
-    onContinueClick: (Int) -> Unit,
+    userViewModel: UserViewModel,
+    onContinueClick: (Int, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val radioOptions = listOf(
@@ -374,6 +385,10 @@ fun SheetContent(
 
     var radioStatus by remember {
         mutableStateOf(0)
+    }
+
+    var radioDescription by remember{
+        mutableStateOf("")
     }
 
     Column(
@@ -412,7 +427,7 @@ fun SheetContent(
         Spacer(modifier = Modifier.size(8.dp))
         ReButtonFullRounded(
             text = "Continue",
-            onClick = { onContinueClick(radioStatus) }
+            onClick = { onContinueClick(radioStatus, radioDescription) }
         )
     }
 }

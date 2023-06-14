@@ -2,7 +2,6 @@ package com.c23ps422.reclothes.ui.navigation
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
-    object Detect : Screen("detect")
     object Transaction : Screen("transaction")
     object Medals : Screen("medals")
     object DetailDIY : Screen("home/{diyId}") {
@@ -16,4 +15,5 @@ sealed class Screen(val route: String) {
     object Login: Screen("login")
     object Register: Screen("register")
     object Splash: Screen("splash")
+    object UserScreen: Screen("userScreen")
 }

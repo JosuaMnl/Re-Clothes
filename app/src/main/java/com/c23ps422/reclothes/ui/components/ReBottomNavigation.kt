@@ -10,11 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -62,11 +58,6 @@ fun ReBottomNavigation(navController: NavHostController, modifier: Modifier = Mo
                 screen = Screen.Home
             ),
             NavigationItem(
-                title = stringResource(R.string.menu_detect),
-                icon = Icons.Default.Search,
-                screen = Screen.Detect
-            ),
-            NavigationItem(
                 title = stringResource(R.string.menu_transaction),
                 icon = Icons.Default.Menu,
                 screen = Screen.Transaction
@@ -75,6 +66,11 @@ fun ReBottomNavigation(navController: NavHostController, modifier: Modifier = Mo
                 title = stringResource(R.string.menu_medals),
                 icon = Icons.Default.Star,
                 screen = Screen.Medals
+            ),
+            NavigationItem(
+                title = stringResource(R.string.menu_profile),
+                icon = Icons.Default.Person,
+                screen = Screen.UserScreen
             ),
         )
         navigationItems.map { item ->

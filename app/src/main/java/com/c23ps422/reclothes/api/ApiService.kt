@@ -2,6 +2,7 @@ package com.c23ps422.reclothes.api
 
 import LoginRegisterResponse
 import com.c23ps422.reclothes.model.response.CreateUserClothResponse
+import com.c23ps422.reclothes.model.response.UserProfileResponse
 import retrofit2.http.*
 
 interface ApiService {
@@ -21,6 +22,9 @@ interface ApiService {
         @Field("password_confirmation") password_confirmation: String,
         @Field("roles") roles: String = "1",
     ): LoginRegisterResponse
+
+    @GET("user")
+    suspend fun getUser(): UserProfileResponse
 
     @FormUrlEncoded
     @POST("userCloth/create")

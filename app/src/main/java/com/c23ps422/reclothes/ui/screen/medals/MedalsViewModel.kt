@@ -7,8 +7,6 @@ import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.repository.MedalsRepository
 import com.c23ps422.reclothes.model.medals.Medals
-import com.c23ps422.reclothes.repository.DIYRepository
-import com.c23ps422.reclothes.ui.screen.diy.DIYViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

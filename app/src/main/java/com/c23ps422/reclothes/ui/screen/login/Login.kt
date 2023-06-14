@@ -51,7 +51,6 @@ import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.data.ReClothesPreference
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
-import com.c23ps422.reclothes.ui.components.ReTextField
 import com.c23ps422.reclothes.ui.components.ReTextFieldWithIcon
 import com.c23ps422.reclothes.ui.navigation.Screen
 import kotlinx.coroutines.delay

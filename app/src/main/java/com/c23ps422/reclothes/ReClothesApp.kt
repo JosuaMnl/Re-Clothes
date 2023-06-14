@@ -64,6 +64,7 @@ import com.c23ps422.reclothes.ui.screen.diy.DetailDIYScreen
 import com.c23ps422.reclothes.ui.screen.login.Login
 import com.c23ps422.reclothes.ui.screen.login.dataStore
 import com.c23ps422.reclothes.ui.screen.medals.MedalsScreen
+import com.c23ps422.reclothes.ui.screen.profile.UserScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.PreviewTakenImage
@@ -244,7 +245,8 @@ fun NavGraph(
                         }
                     )
                 }
-                composable(Screen.Detect.route) {
+                composable(Screen.UserScreen.route) {
+                    UserScreen()
                 }
 
                 composable(Screen.Transaction.route) {

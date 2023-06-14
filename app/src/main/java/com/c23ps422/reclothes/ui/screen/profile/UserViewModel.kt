@@ -10,14 +10,19 @@ import com.c23ps422.reclothes.model.response.UserProfileResponse
 import com.c23ps422.reclothes.repository.UserRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.lang.Thread.State
 
 class UserViewModel(
     private val repository: UserRepository
-) : ViewModel(){
+) : ViewModel() {
 
     private val _uiState: MutableStateFlow<UiState<UserProfileResponse>> =
         MutableStateFlow(UiState.Loading)
     val uiState: StateFlow<UiState<UserProfileResponse>> get() = _uiState
+
+    private val _uiState2: MutableStateFlow<UiState<UserProfileResponse>> =
+        MutableStateFlow(UiState.Loading)
+    val uiState2: StateFlow<UiState<UserProfileResponse>> get() = _uiState2
 
     init {
         getUser()
@@ -25,10 +30,34 @@ class UserViewModel(
 
     private fun getUser() {
         viewModelScope.launch {
-            repository.getUser().catch {e ->
+            repository.getUser().catch { e ->
                 _uiState.value = UiState.Error(e.message.toString())
             }.collect { data ->
                 _uiState.value = UiState.Success(data)
+            }
+        }
+    }
+
+    fun updateUser(
+        name: String,
+        email: String,
+        account_number: String,
+        address: String,
+        phone_number: String,
+        account_type: String
+    ) {
+        viewModelScope.launch {
+            repository.updateUser(
+                name = name,
+                email = email,
+                account_number = account_number,
+                address = address,
+                phone_number = phone_number,
+                account_type = account_type
+            ).catch { e ->
+                _uiState2.value = UiState.Error(e.message.toString())
+            }.collect { data ->
+                _uiState2.value = UiState.Success(data)
             }
         }
     }

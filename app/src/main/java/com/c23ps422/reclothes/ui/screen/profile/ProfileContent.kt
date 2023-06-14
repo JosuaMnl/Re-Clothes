@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen.medals
+package com.c23ps422.reclothes.ui.screen.profile
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -18,9 +18,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.c23ps422.reclothes.model.response.UserData
 import com.c23ps422.reclothes.model.response.UserMeta
 import com.c23ps422.reclothes.model.response.UserProfileResponse
@@ -40,6 +42,11 @@ fun ProfileContent(
     var address by rememberSaveable { mutableStateOf(data.address) }
     var phoneNumber by rememberSaveable { mutableStateOf(data.phoneNumber) }
     var accountType by rememberSaveable { mutableStateOf(data.accountType) }
+
+    val context = LocalContext.current
+    val userViewModel: UserViewModel = viewModel(
+        factory = UserViewModel.provideFactory(context)
+    )
 
 
     Box(
@@ -103,7 +110,7 @@ fun ProfileContent(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 ReButtonFullRounded(text = "Update Profile", onClick = {
-
+                    userViewModel.updateUser(name = name, email = email, account_number = accountNumber!!, address = address!!, phone_number = phoneNumber!!, account_type = accountType!!)
                 })
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedButton(modifier = Modifier

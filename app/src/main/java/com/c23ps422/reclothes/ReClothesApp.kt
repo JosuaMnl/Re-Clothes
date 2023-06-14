@@ -375,7 +375,7 @@ fun Context.findActivity(): Activity? {
 @Composable
 fun SheetContent(
     userViewModel: UserViewModel,
-    onContinueClick: (Int, String) -> Unit,
+    onContinueClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val radioOptions = listOf(
@@ -387,9 +387,6 @@ fun SheetContent(
         mutableStateOf(0)
     }
 
-    var radioDescription by remember{
-        mutableStateOf("")
-    }
 
     Column(
         modifier = modifier
@@ -427,7 +424,7 @@ fun SheetContent(
         Spacer(modifier = Modifier.size(8.dp))
         ReButtonFullRounded(
             text = "Continue",
-            onClick = { onContinueClick(radioStatus, radioDescription) }
+            onClick = { onContinueClick(radioStatus) }
         )
     }
 }

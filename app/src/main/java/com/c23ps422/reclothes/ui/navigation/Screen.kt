@@ -16,4 +16,5 @@ sealed class Screen(val route: String) {
     object Register: Screen("register")
     object Splash: Screen("splash")
     object UserScreen: Screen("userScreen")
+    object TransactionStatus: Screen("transactionStatus")
 }

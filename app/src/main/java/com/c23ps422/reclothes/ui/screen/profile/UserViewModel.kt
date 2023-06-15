@@ -24,11 +24,7 @@ class UserViewModel(
         MutableStateFlow(UiState.Loading)
     val uiState2: StateFlow<UiState<UserProfileResponse>> get() = _uiState2
 
-    init {
-        getUser()
-    }
-
-    private fun getUser() {
+    fun getUser() {
         viewModelScope.launch {
             repository.getUser().catch { e ->
                 _uiState.value = UiState.Error(e.message.toString())
@@ -65,7 +61,13 @@ class UserViewModel(
     val userId: String
         get() = when (val state = uiState.value) {
             is UiState.Success -> state.data.data.id
-            else -> "Not fetched!"
+            else -> "userId Not fetched!"
+        }
+
+    val username: String
+        get() = when (val state = uiState.value) {
+            is UiState.Success -> state.data.data.name
+            else -> "name not fetched!"
         }
 
     companion object {

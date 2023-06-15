@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -46,7 +47,8 @@ fun ReBottomNavigation(navController: NavHostController, modifier: Modifier = Mo
     BottomAppBar(
         cutoutShape = CircleShape,
         modifier = modifier.height(72.dp),
-        contentPadding = PaddingValues(4.dp)
+        contentPadding = PaddingValues(4.dp),
+        backgroundColor = Color(android.graphics.Color.parseColor("#27360B"))
 
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -75,8 +77,8 @@ fun ReBottomNavigation(navController: NavHostController, modifier: Modifier = Mo
         )
         navigationItems.map { item ->
             BottomNavigationItem(
-                selectedContentColor = MaterialTheme.colors.onPrimary,
-                unselectedContentColor = MaterialTheme.colors.onSecondary,
+                selectedContentColor = Color.White,
+                unselectedContentColor = Color.Gray,
                 alwaysShowLabel = false,
                 selected = currentRoute == item.screen.route,
                 onClick = {

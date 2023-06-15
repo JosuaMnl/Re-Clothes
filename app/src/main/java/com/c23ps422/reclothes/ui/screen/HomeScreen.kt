@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -19,6 +20,7 @@ import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.model.diy.DIY
 import com.c23ps422.reclothes.model.medals.Medals
 import com.c23ps422.reclothes.ui.components.ReCard
+import com.c23ps422.reclothes.ui.components.ReMisc
 import com.c23ps422.reclothes.ui.components.ReSearchBar
 import com.c23ps422.reclothes.ui.screen.diy.DIYViewModel
 import com.c23ps422.reclothes.ui.screen.medals.MedalsViewModel
@@ -32,6 +34,7 @@ fun HomeScreen(
     diyViewModel: DIYViewModel = viewModel(
         factory = DIYViewModel.provideFactory()
     ),
+    username: String,
     navigateToDetail: (Int) -> Unit
 ) {
     val diyState by diyViewModel.uiState.collectAsState(initial = UiState.Loading)
@@ -46,7 +49,7 @@ fun HomeScreen(
         diyState is UiState.Success && medalsState is UiState.Success -> {
             val diyData = (diyState as UiState.Success).data
             val medalsData = (medalsState as UiState.Success).data
-            HomeContent(diy = diyData, medals = medalsData, navigateToDetail = navigateToDetail)
+            HomeContent(diy = diyData, medals = medalsData, navigateToDetail = navigateToDetail, username = username)
         }
 
         diyState is UiState.Error || medalsState is UiState.Error -> {
@@ -60,13 +63,14 @@ fun HomeContent(
     modifier: Modifier = Modifier,
     diy: List<DIY>,
     medals: List<Medals>,
+    username: String,
     navigateToDetail: (Int) -> Unit
 ) {
     // Tsukifell: changed the Column into LazyColumn, makes it scrollable in another devices
     LazyColumn {
         item {
             Text(
-                text = "Welcome Calvin Saputra!",
+                text = "Welcome $username!",
                 modifier = modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
             )
             Text(
@@ -74,6 +78,13 @@ fun HomeContent(
                 modifier = modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
                 fontWeight = FontWeight.Bold
             )
+            Row(
+                modifier = Modifier.padding(start = 48.dp, top = 16.dp)
+            ) {
+                ReMisc(name = "Pendapatan", description = "Rp. 120.000")
+                Spacer(modifier = Modifier.width(32.dp))
+                ReMisc(name = "EXP", description = "0 XP")
+            }
             ReSearchBar(query = "", onQueryChange = {})
         }
 
@@ -88,7 +99,7 @@ fun HomeContent(
                         .padding(top = 8.dp)
                 ) {
                     items(diy) { item ->
-                        ReCard(item.photoUrl, item.title, modifier = Modifier.clickable {
+                        ReCard(item.photoUrl, item.title, item.viewsCount, modifier = Modifier.clickable {
                             navigateToDetail(item.id)
                         })
                         Spacer(modifier = Modifier.width(8.dp))
@@ -108,7 +119,7 @@ fun HomeContent(
                         .padding(top = 8.dp)
                 ) {
                     items(medals) { item ->
-                        ReCard(item.photoUrl, item.title)
+                        ReCard(item.photoUrl, item.title, "")
                         Spacer(modifier = Modifier.width(8.dp))
                     }
                 }
@@ -116,6 +127,7 @@ fun HomeContent(
         }
     }
 }
+
 
 //@Preview
 //@Composable

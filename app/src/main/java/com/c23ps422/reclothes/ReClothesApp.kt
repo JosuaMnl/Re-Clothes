@@ -47,6 +47,7 @@ import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.PreviewTakenImage
+import com.c23ps422.reclothes.ui.screen.saleprocess.TransactionStatus
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -197,17 +198,23 @@ fun NavGraph(
             floatingActionButton = {
                 // Tsukifell: While the page on DetailDIY screen, hide the fab too
                 if (currentRoute !in noBottomBarFab && showBottomBarFab) {
-                    FloatingActionButton(onClick = {
-                        scope.launch {
-                            if (sheetState.isVisible) {
-                                sheetState.hide()
-                            } else {
-                                sheetState.show()
+                    FloatingActionButton(
+                        onClick = {
+                            scope.launch {
+                                if (sheetState.isVisible) {
+                                    sheetState.hide()
+                                } else {
+                                    sheetState.show()
+                                }
                             }
-                        }
-                    }
+                        },
+                        backgroundColor = Color(android.graphics.Color.parseColor("#27360B"))
                     ) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "fab")
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "fab",
+                            tint = Color.White
+                        )
                     }
                 }
             },
@@ -222,6 +229,7 @@ fun NavGraph(
             ) {
                 composable(Screen.Home.route) {
                     HomeScreen(
+                        username = userViewModel.username,
                         navigateToDetail = { diyId ->
                             navController.navigate(Screen.DetailDIY.createRoute(diyId))
                         }
@@ -264,7 +272,7 @@ fun NavGraph(
                                 navController.navigate(Screen.PreviewTakenImage.route)
                             }
                         },
-                        onError = { exception ->
+                        onError = { _ ->
 
                         },
                     )
@@ -288,6 +296,10 @@ fun NavGraph(
                             navController.navigate(Screen.Login.route)
                         }
                     )
+                }
+
+                composable(Screen.TransactionStatus.route) {
+                    TransactionStatus(onBackPressed = {})
                 }
 
                 composable(Screen.Login.route) {

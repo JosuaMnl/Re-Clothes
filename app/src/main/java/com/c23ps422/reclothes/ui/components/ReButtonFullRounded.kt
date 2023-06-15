@@ -26,10 +26,18 @@ fun ReButtonFullRounded(
             .fillMaxWidth()
             .height(42.dp),
         shape = RoundedCornerShape(50.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color(
+                android.graphics.Color.parseColor(
+                    "#27360B"
+                )
+            )
+        )
     ) {
         Text(
             text = text,
             modifier = Modifier.align(Alignment.CenterVertically),
+            color = Color.White
         )
     }
 }

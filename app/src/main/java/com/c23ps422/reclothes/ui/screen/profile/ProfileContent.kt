@@ -110,7 +110,7 @@ fun ProfileContent(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 ReButtonFullRounded(text = "Update Profile", onClick = {
-                    userViewModel.updateUser(name = name, email = email, account_number = accountNumber!!, address = address!!, phone_number = phoneNumber!!, account_type = accountType!!)
+                    userViewModel.updateUser(name = name, email = email, account_number = accountNumber ?: "", address = address ?: "", phone_number = phoneNumber ?: "", account_type = accountType ?: "")
                 })
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedButton(modifier = Modifier

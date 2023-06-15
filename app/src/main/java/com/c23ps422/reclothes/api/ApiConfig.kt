@@ -2,6 +2,7 @@ package com.c23ps422.reclothes.api
 
 import android.content.Context
 import com.c23ps422.reclothes.BuildConfig
+import com.c23ps422.reclothes.api.ApiConfig.Companion.getApiService
 import com.c23ps422.reclothes.data.ReClothesPreference
 import com.c23ps422.reclothes.ui.screen.login.dataStore
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+import java.util.concurrent.TimeUnit
 
 /**
  * This class is responsible for configuring and providing an instance of the ApiService,
@@ -44,13 +45,16 @@ class ApiConfig {
                 runBlocking(Dispatchers.IO) {
                     val token = pref.getToken().firstOrNull()
                     val requestHeaders = req.newBuilder()
-                        .addHeader("Authorization","Bearer $token")
+                        .addHeader("Authorization", "Bearer $token")
                         .build()
                     chain.proceed(requestHeaders)
                 }
             }
 
             val client = OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(authInterceptor)
                 .addInterceptor(loggingInterceptor)
                 .build()

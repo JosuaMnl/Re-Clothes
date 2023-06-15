@@ -27,6 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,18 +40,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.data.ReClothesPreference
+import com.c23ps422.reclothes.model.response.ClothItem
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
+import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.login.dataStore
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import java.io.File
 
 @Composable
 fun PreviewTakenImage(
+    postToModelViewModel: PostToModelViewModel,
+    navController: NavController,
     pref: ReClothesPreference,
     photo: File?,
     modifier: Modifier = Modifier
@@ -63,9 +72,6 @@ fun PreviewTakenImage(
     }
 
     val context = LocalContext.current
-
-    val postToModelViewModel: PostToModelViewModel =
-        viewModel(factory = PostToModelViewModel.provideFactory(context))
 
     LazyColumn(
         modifier = modifier.padding(16.dp)
@@ -134,14 +140,15 @@ fun PreviewTakenImage(
                         .fillMaxWidth()
                         .height(42.dp),
                     shape = RoundedCornerShape(50.dp),
-                    onClick = { /* TODO: Handle cancel button click */ }){
+                    onClick = { /* TODO: Handle cancel button click */ }) {
                     Text(text = "Cancel")
                 }
             }
         }
     }
 
-    postToModelViewModel.uiState.collectAsState().value.let {uiState ->
+    val scope = rememberCoroutineScope()
+    postToModelViewModel.uiState.collectAsState().value.let { uiState ->
         when (uiState) {
             is UiState.Idle -> {}
 
@@ -152,8 +159,13 @@ fun PreviewTakenImage(
             }
 
             is UiState.Success -> {
-                Log.d("PreviewTakenImage", "FotoModelUrl: ${uiState.data.data.defectsImageUrl}")
-                Toast.makeText(context, uiState.data.meta.status, Toast.LENGTH_SHORT).show()
+                LaunchedEffect(uiState) {
+                    Log.d("PreviewTakenImage", "FotoModelUrl: ${uiState.data.data.defectsImageUrl}")
+                    Toast.makeText(context, uiState.data.meta.status, Toast.LENGTH_SHORT).show()
+                    scope.launch {
+                        navController.navigate(Screen.ClothesIdentity.route)
+                    }
+                }
             }
 
             is UiState.Error -> {
@@ -166,7 +178,11 @@ fun PreviewTakenImage(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun TakenImagePreview() {
+    val context = LocalContext.current
     PreviewTakenImage(
+        postToModelViewModel =
+        viewModel(factory = PostToModelViewModel.provideFactory(context)),
+        navController = rememberNavController(),
         photo = null,
         pref = ReClothesPreference.getInstance(LocalContext.current.dataStore)
     )

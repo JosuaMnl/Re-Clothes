@@ -1,5 +1,7 @@
 package com.c23ps422.reclothes.ui.navigation
 
+import com.c23ps422.reclothes.model.response.ClothItem
+
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Transaction : Screen("transaction")
@@ -16,4 +18,5 @@ sealed class Screen(val route: String) {
     object Register: Screen("register")
     object Splash: Screen("splash")
     object UserScreen: Screen("userScreen")
+    object ClothesIdentity: Screen("clothesIdentity")
 }

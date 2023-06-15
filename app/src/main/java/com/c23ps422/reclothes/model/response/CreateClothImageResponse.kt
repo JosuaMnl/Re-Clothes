@@ -1,6 +1,8 @@
 package com.c23ps422.reclothes.model.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class UploadClothResponse(
 
@@ -58,3 +60,12 @@ data class ClothImage(
     @field:SerializedName("created_at")
     val createdAt: String
 )
+
+@Parcelize
+data class ClothItem(
+    val id: String,
+    val fabricStatus: Int,
+    val originalImageUrl: String,
+    val defectsImageUrl: String
+) : Parcelable
+

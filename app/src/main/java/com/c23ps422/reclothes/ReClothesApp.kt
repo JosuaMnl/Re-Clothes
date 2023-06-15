@@ -33,6 +33,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.data.ReClothesPreference
+import com.c23ps422.reclothes.model.response.ClothItem
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
@@ -45,7 +46,9 @@ import com.c23ps422.reclothes.ui.screen.profile.UserScreen
 import com.c23ps422.reclothes.ui.screen.profile.UserViewModel
 import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
+import com.c23ps422.reclothes.ui.screen.saleprocess.ClothesIdentity
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
+import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PostToModelViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PreviewTakenImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -140,6 +143,9 @@ fun NavGraph(
     val createUserClothViewModel: CreateUserClothViewModel =
         viewModel(factory = CreateUserClothViewModel.provideFactory(context))
 
+    val postToModelViewModel: PostToModelViewModel =
+        viewModel(factory = PostToModelViewModel.provideFactory(context))
+
     val activity = context.findActivity()
 
     val currentDestination = navBackStackEntry?.destination
@@ -159,7 +165,8 @@ fun NavGraph(
         Screen.ChooseImage.route,
         Screen.DataAllClothes.route,
         Screen.TakeImage.route,
-        Screen.PreviewTakenImage.route
+        Screen.PreviewTakenImage.route,
+        Screen.ClothesIdentity.route
     )
 
     var showBottomBarFab by remember {
@@ -245,8 +252,12 @@ fun NavGraph(
                 }
 
                 composable(Screen.PreviewTakenImage.route) {
-//                    val uri = capturedImageUri?.let { Uri.fromFile(it) }
-                    PreviewTakenImage(pref = pref, photo = capturedImage)
+                    PreviewTakenImage(
+                        postToModelViewModel = postToModelViewModel,
+                        navController = navController,
+                        pref = pref,
+                        photo = capturedImage
+                    )
                 }
 
                 composable(Screen.ChooseImage.route) {
@@ -270,7 +281,6 @@ fun NavGraph(
 
                         },
                     )
-
                 }
 
                 composable(
@@ -298,6 +308,10 @@ fun NavGraph(
 
                 composable(Screen.Register.route) {
                     Register(navController)
+                }
+
+                composable(Screen.ClothesIdentity.route) {
+                    ClothesIdentity(postToModelViewModel = postToModelViewModel)
                 }
             }
         }

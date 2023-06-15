@@ -13,32 +13,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ReStatus(
+fun ReTransaction(
     modifier: Modifier = Modifier,
-    date: String,
-    statusName: String,
-    description: String
+    idTransaction: String,
+    status: String,
 ) {
     Card(shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(
-                text = date,
-                style = MaterialTheme.typography.h6,
-                fontWeight = FontWeight.Bold,
-            )
             Column(
-                Modifier.padding(start = 4.dp, end = 12.dp),
+                Modifier.padding(start = 4.dp, end = 12.dp, top = 4.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = statusName,
+                    text = idTransaction,
                     style = MaterialTheme.typography.h6,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    text = description,
+                    text = status,
                     style = MaterialTheme.typography.subtitle1,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -49,10 +43,9 @@ fun ReStatus(
 
 @Preview(showBackground = true)
 @Composable
-fun ReStatusPreview () {
-    ReStatus(
-        date = "21 May 2023",
-        statusName = "On Progress",
-        description = "Pesanan berhasil dibuat"
+fun ReTransaction() {
+    ReTransaction(
+        idTransaction = "A3045567",
+        status = "Ongoing"
     )
 }

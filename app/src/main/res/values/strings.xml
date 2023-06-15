@@ -17,6 +17,7 @@
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
     <string name="your_clothes_preview">Berikut adalah gambar pakaianmu</string>
     <string name="in_progress">This feature is in progress</string>
+    <string name="transaction">Transaction</string>
 
     <!-- String for HomeScreen -->
     <string name="hc_name">Welcome</string>
@@ -31,6 +32,15 @@
     <!-- String for Detect Screen -->
     <string name="ds_icon">Take Picture</string>
 
+    <!-- String for Login -->
+    <string name="lg_photo_desc">ReClothes Logo</string>
+    <string name="lg_email">Email</string>
+    <string name="lg_password">Password</string>
+    <string name="lg_hd_pwd">Hide Password</string>
+    <string name="lg_sw_pwd">Show Password</string>
+    <string name="lg_success">Login berhasil!</string>
+    <string name="lg_error">Login gagal!</string>
+
     <!-- String for Register -->
     <string name="rg_photo_desc">ReClothes Logo</string>
     <string name="rg_username">Username</string>
@@ -39,6 +49,8 @@
     <string name="rg_password_confirmation">Password Confirmation</string>
     <string name="rg_hd_pwd">Hide Password</string>
     <string name="rg_sw_pwd">Show Password</string>
+    <string name="rg_success">Register berhasil!</string>
+    <string name="rg_error">Register gagal!</string>
 
     <!-- String for ProfileContent -->
     <string name="pc_title">Your Profile</string>
@@ -68,6 +80,7 @@
     <string name="pti_photo_desc">Preview Taken Image</string>
     <string name="pti_cancel">Cancel</string>
     <string name="pti_continue">Continue</string>
+    <string name="pti_note">Note: Dengan menekan tombol continue anda dapat melihat tingkat kerusakan dan tipe fabrik dari pakaian anda dengan menggunakan teknologi AI</string>
 
     <!-- String for ReBottomNavigation -->
     <string name="rbn_fab_desc">Floating Action Button</string>
@@ -103,5 +116,8 @@
     <string name="ci_camera">Camera</string>
     <string name="ci_gallery">Gallery</string>
     <string name="ci_note">Note : Gambar yang dimasukkan hanya bisa satu</string>
+
+    <!-- String for UserScreen-->
+    <string name="us_error">Data pengguna gagal diterima</string>
 
 </resources>

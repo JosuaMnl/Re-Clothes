@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -104,23 +105,29 @@ fun PreviewTakenImage(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(9f / 16f)
-                    .clip(RoundedCornerShape(8.dp))
-            ) {
-                if (photo != null) {
-                    val photoUri = Uri.fromFile(photo)
-                    Image(
-                        painter = rememberAsyncImagePainter(photoUri),
-                        contentDescription = stringResource(R.string.pti_photo_desc),
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+
+            if (photo != null) {
+                val photoUri = Uri.fromFile(photo)
+                Image(
+                    painter = rememberAsyncImagePainter(photoUri),
+                    contentDescription = stringResource(R.string.pti_note),
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(360.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                )
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = stringResource(R.string.pti_note),
+                style = MaterialTheme.typography.h6.copy(
+                    fontWeight = FontWeight.Light,
+                    fontSize = 12.sp
+                ),
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
@@ -141,7 +148,7 @@ fun PreviewTakenImage(
                             postToModelViewModel.createClothImage(compressedPhoto!!, idCloth)
                         }
                     }) {
-                    Text(stringResource(R.string.pti_continue))
+                    Text(stringResource(R.string.pti_continue), textAlign = TextAlign.Justify)
                 }
             }
         }
@@ -164,7 +171,7 @@ fun PreviewTakenImage(
             is UiState.Success -> {
                 LaunchedEffect(uiState) {
                     Log.d("PreviewTakenImage", "FotoModelUrl: ${uiState.data.data.defectsImageUrl}")
-                    Toast.makeText(context, uiState.data.meta.status, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Gambar berhasil diunngah!", Toast.LENGTH_SHORT).show()
                     scope.launch {
                         navController.navigate(Screen.ClothesIdentity.route)
                     }

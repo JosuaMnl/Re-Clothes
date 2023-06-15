@@ -70,7 +70,8 @@ fun ProfileContent(
                     onValueChange = {
                         name = it
                     },
-                    label = stringResource(R.string.pc_name)
+                    label = stringResource(R.string.pc_name),
+                    enabled = true
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
@@ -78,7 +79,8 @@ fun ProfileContent(
                     onValueChange = {
                         email = it
                     },
-                    label = stringResource(R.string.pc_email)
+                    label = stringResource(R.string.pc_email),
+                    enabled = false
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
@@ -86,7 +88,8 @@ fun ProfileContent(
                     onValueChange = {
                         accountNumber = it
                     },
-                    label = stringResource(R.string.pc_account_number)
+                    label = stringResource(R.string.pc_account_number),
+                    enabled = true
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
@@ -94,7 +97,8 @@ fun ProfileContent(
                     onValueChange = {
                         address = it
                     },
-                    label = stringResource(R.string.pc_address)
+                    label = stringResource(R.string.pc_address),
+                    enabled = true
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
@@ -102,7 +106,8 @@ fun ProfileContent(
                     onValueChange = {
                         phoneNumber = it
                     },
-                    label = stringResource(R.string.pc_phone_number)
+                    label = stringResource(R.string.pc_phone_number),
+                    enabled = true
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
@@ -110,7 +115,8 @@ fun ProfileContent(
                     onValueChange = {
                         accountType = it
                     },
-                    label = stringResource(R.string.pc_account_type)
+                    label = stringResource(R.string.pc_account_type),
+                    enabled = true
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 ReButtonFullRounded(text = stringResource(R.string.pc_update), onClick = {

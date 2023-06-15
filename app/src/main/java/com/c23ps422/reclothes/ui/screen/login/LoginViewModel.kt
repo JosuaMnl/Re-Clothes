@@ -2,7 +2,6 @@ package com.c23ps422.reclothes.ui.screen.login
 
 import Meta
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

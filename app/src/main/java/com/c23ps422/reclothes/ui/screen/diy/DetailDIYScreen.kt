@@ -147,9 +147,3 @@ fun DetailDIYContent(
         }
     }
 }
-
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun DetailDIYPreview() {
-//    DetailDIY(image = R.drawable.ic_launcher_background, title = "Stylish Bag", author = "Author name", description = "Lorem ipsum", onBackClick = { /*TODO*/ })
-//}

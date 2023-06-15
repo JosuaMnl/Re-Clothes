@@ -21,9 +21,9 @@ fun DataAllClothesScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(24.dp),
     verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(text = "Isilah data untuk mencakup seluruh pakaian bekas yang ingin dijual dibawah ini :")
-        ReTextField(value = "", onValueChange = {}, label = "Jumlah Pakaian")
-        ReTextField(value = "", onValueChange = {}, label = "Berat")
-        ReTextField(value = "", onValueChange = {}, label = "Alamat")
+        ReTextField(value = "", onValueChange = {}, label = "Jumlah Pakaian", enabled = true)
+        ReTextField(value = "", onValueChange = {}, label = "Berat", enabled = true)
+        ReTextField(value = "", onValueChange = {}, label = "Alamat", enabled = true)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,

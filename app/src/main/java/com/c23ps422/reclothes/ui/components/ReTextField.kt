@@ -12,11 +12,9 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.c23ps422.reclothes.R
 
 @Composable
     fun ReTextFieldWithIcon(
@@ -62,7 +60,8 @@ fun ReTextField(
     modifier: Modifier = Modifier,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
-    colors: TextFieldColors = TextFieldDefaults.textFieldColors()
+    colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
+    enabled: Boolean
 ) {
     OutlinedTextField(
         value = value,
@@ -79,7 +78,8 @@ fun ReTextField(
 
         ),
         isError = isError,
-        visualTransformation = visualTransformation
+        visualTransformation = visualTransformation,
+        enabled = enabled
     )
 }
 
@@ -90,5 +90,6 @@ fun ReTextFieldPreview() {
         value = "To be changed",
         onValueChange = {},
         label = "To be changed",
+        enabled = true
     )
 }

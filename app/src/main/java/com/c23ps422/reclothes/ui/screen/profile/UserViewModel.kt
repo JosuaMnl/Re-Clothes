@@ -10,7 +10,6 @@ import com.c23ps422.reclothes.model.response.UserProfileResponse
 import com.c23ps422.reclothes.repository.UserRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.lang.Thread.State
 
 class UserViewModel(
     private val repository: UserRepository

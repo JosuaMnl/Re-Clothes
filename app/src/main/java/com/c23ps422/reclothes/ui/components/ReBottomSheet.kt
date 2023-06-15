@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
@@ -17,11 +16,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -40,7 +40,7 @@ fun ReBottomSheet(
                     .height(300.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                Text(text = "Bottom sheet", fontSize = 60.sp)
+                Text(text = stringResource(R.string.rbs_bottom_sheet), fontSize = 60.sp)
             }
         },
         sheetBackgroundColor = Color.Green,
@@ -60,7 +60,7 @@ fun ReBottomSheet(
                     }
                 }
             }) {
-                Text(text = "Toggle Sheet")
+                Text(stringResource(R.string.rbs_toggle_sheet))
             }
         }
     }

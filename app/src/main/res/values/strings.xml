@@ -2,7 +2,6 @@
     <string name="app_name">ReClothes</string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
-    <string name="menu_scanClothes"></string>
     <string name="menu_transaction">Transaction</string>
     <string name="menu_medals">Medals</string>
     <string name="placeholder_search">Cari di Re-Clothes</string>
@@ -17,4 +16,91 @@
     <string name="author">Author name</string>
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
     <string name="your_clothes_preview">Berikut adalah gambar pakaianmu</string>
+
+    <!-- String for HomeScreen -->
+    <string name="hc_name">Welcome</string>
+    <string name="hc_message">Yuk jual pakaian enggak terpakaimu!</string>
+    <string name="hc_money_title">Uang</string>
+    <string name="hc_money_desc">Rp. 120.000</string>
+    <string name="hc_exp_title">EXP</string>
+    <string name="hc_exp_desc">0 Xperience</string>
+    <string name="hc_diy">Do it Yourself</string>
+    <string name="hc_achievement">Achievements</string>
+
+    <!-- String for Detect Screen -->
+    <string name="ds_icon">Take Picture</string>
+
+    <!-- String for Register -->
+    <string name="rg_photo_desc">ReClothes Logo</string>
+    <string name="rg_username">Username</string>
+    <string name="rg_email">Email</string>
+    <string name="rg_password">Password</string>
+    <string name="rg_password_confirmation">Password Confirmation</string>
+    <string name="rg_hd_pwd">Hide Password</string>
+    <string name="rg_sw_pwd">Show Password</string>
+
+    <!-- String for ProfileContent -->
+    <string name="pc_title">Your Profile</string>
+    <string name="pc_name">Nama Lengkap</string>
+    <string name="pc_email">Alamat E-mail</string>
+    <string name="pc_account_number">Nomor Rekening</string>
+    <string name="pc_account_number_empty">Nomor rekening kamu masih kosong</string>
+    <string name="pc_address">Alamat</string>
+    <string name="pc_address_empty">Alamat kamu masih kosong</string>
+    <string name="pc_phone_number">Nomor Telepon</string>
+    <string name="pc_phone_number_empty">Nomor telepon kamu masih kosong</string>
+    <string name="pc_account_type">Tipe Rekening</string>
+    <string name="pc_account_type_empty">Tipe rekening kamu masih kosong</string>
+    <string name="pc_update">Update Profile</string>
+    <string name="pc_update_success">Profilmu berhasil di update!</string>
+    <string name="pc_update_error">Profilmu gagal di update!</string>
+    <string name="pc_logout">Logout</string>
+
+    <!-- String for DetailDIYScreen -->
+    <string name="dds_image_desc">Thumbnail video</string>
+    <string name="dds_watch">Watch</string>
+
+    <!-- String for MedalsScreen -->
+    <string name="ms_title">Medals</string>
+
+    <!-- String for PreviewTakenImage -->
+    <string name="pti_photo_desc">Preview Taken Image</string>
+    <string name="pti_cancel">Cancel</string>
+    <string name="pti_continue">Continue</string>
+
+    <!-- String for ReBottomNavigation -->
+    <string name="rbn_fab_desc">Floating Action Button</string>
+
+    <!-- String for ReBottomSheet -->
+    <string name="rbs_bottom_sheet">Bottom Sheet</string>
+    <string name="rbs_toggle_sheet">Toggle Sheet</string>
+
+    <!-- Color Parse -->
+    <string name="reclothes_dark_green">#27360B</string>
+    <string name="reclothes_dark_yellow">#A09739</string>
+    <string name="reclothes_skin">#D4D3A8</string>
+
+    <!-- String for ReMedal -->
+    <string name="rm_image_desc">Medal Photo</string>
+
+    <!-- String for ReMisc-->
+    <string name="rmsc_icon_desc">Icon</string>
+
+    <!-- String for ReButtonFullRounded-->
+    <string name="rbfr_watch">Watch</string>
+
+    <!-- String for ReClothesApp-->
+    <string name="rca_sc_one">Satuan (1-15 Pcs)</string>
+    <string name="rca_sc_lot">Karungan/Plastik (>15 Pcs)</string>
+    <string name="rca_sc_continue">Continue</string>
+    <string name="rca_sc_title">Banyak pakaian bekas yang ingin dijual?</string>
+    <string name="rca_sc_small">small</string>
+    <string name="rca_sc_bulk">bulk</string>
+
+    <!-- String for ChooseImage-->
+    <string name="ci_title">Silahkan pilih gambar pakaian bekas \n dari kamera atau ambil dari galeri</string>
+    <string name="ci_camera">Camera</string>
+    <string name="ci_gallery">Gallery</string>
+    <string name="ci_note">Note : Gambar yang dimasukkan hanya bisa satu</string>
+
 </resources>

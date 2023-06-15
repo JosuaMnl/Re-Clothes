@@ -9,7 +9,7 @@ object DIYSource {
             "Ae PooiM",
             "DIY Upcycling Old Pants, you will love it",
             "https://www.youtube.com/watch?v=db4OZQSZevY",
-            "2.7 JT"
+            "2.7 JT views"
         ),
         DIY(
             2,
@@ -18,7 +18,7 @@ object DIYSource {
             "Ae PooiM",
             "Don't throw away your old shirt. You can recycle them into cool sewing project ideas.",
             "https://www.youtube.com/watch?v=-xCKLCziGZk",
-            "543 RB"
+            "543 RB views"
         ),
         DIY(
             3,
@@ -30,7 +30,7 @@ object DIYSource {
                     "In this Video I am sharing a very easy, quick and fun DIY scrunchies or ruffle hair bands. Use any waste, left over fabric pieces or old t-shirts, jeans, Silk, cotton, velvet any cloth to make these cute ruffle hair bands. \n" +
                     "Use all the fabric pieces lying at your home and convert those into these cute scrunchies/ hair bands.",
             "https://www.youtube.com/watch?v=3ghGkYQjib8",
-            "4.4 JT"
+            "4.4 JT views"
         ),
         DIY(
             4,
@@ -39,7 +39,7 @@ object DIYSource {
             "Suart86",
             "This video shows how to make sling bag from old jeans. For this diy project you need only one pair of old blue or black jeans and some hot glue. I hope you like it.",
             "https://www.youtube.com/watch?v=ELyOGDlfVlo",
-            "3.6 JT"
+            "3.6 JT views"
         ),
         DIY(
             5,
@@ -50,7 +50,7 @@ object DIYSource {
                     "\n" +
                     "In this video, I am sharing my best tips for upcycling clothes suitable for both beginners & more experienced upcyclers.",
             "https://www.youtube.com/watch?v=M2khQuDfbfU",
-            "21 RB"
+            "21 RB views"
         ),
         DIY(
             6,
@@ -59,7 +59,7 @@ object DIYSource {
             "Ae PooiM",
             "DIY, how to transform old pants into cute bags.",
             "https://www.youtube.com/watch?v=SMrtMXmk84E",
-            "238 RB"
+            "238 RB views"
         ),
     )
 }

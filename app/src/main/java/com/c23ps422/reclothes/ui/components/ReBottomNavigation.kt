@@ -35,7 +35,10 @@ fun ReBottomNavigationPreview() {
         ReBottomNavigation(navController = navController)
     }, floatingActionButton = {
         FloatingActionButton(onClick = { }) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "fab")
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = stringResource(R.string.rbn_fab_desc)
+            )
         }
     }, floatingActionButtonPosition = FabPosition.Center, isFloatingActionButtonDocked = true) {
 

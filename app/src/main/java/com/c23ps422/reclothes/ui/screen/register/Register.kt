@@ -38,10 +38,8 @@ import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.data.ReClothesPreference
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
-import com.c23ps422.reclothes.ui.components.ReTextField
 import com.c23ps422.reclothes.ui.components.ReTextFieldWithIcon
 import com.c23ps422.reclothes.ui.navigation.Screen
-import com.c23ps422.reclothes.ui.screen.login.LoginViewModel
 import com.c23ps422.reclothes.ui.screen.login.dataStore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -77,7 +75,7 @@ fun Register(
                 Spacer(modifier = Modifier.height(64.dp))
                 Image(
                     painter = painterResource(R.drawable.logo),
-                    contentDescription = "Change this later on",
+                    contentDescription = stringResource(R.string.rg_photo_desc),
                     modifier = Modifier
                         .padding(horizontal = 14.dp)
                         .fillMaxWidth()
@@ -96,7 +94,7 @@ fun Register(
                     onValueChange = {
                         username = it
                     },
-                    label = "Username",
+                    label = stringResource(R.string.rg_username),
                     painterResource = painterResource(
                         id = R.drawable.icon_username
                     ),
@@ -108,7 +106,7 @@ fun Register(
                     onValueChange = {
                         email = it
                     },
-                    label = "Email",
+                    label = stringResource(R.string.rg_email),
                     painterResource = painterResource(
                         id = R.drawable.icon_email
                     ),
@@ -120,7 +118,7 @@ fun Register(
                     onValueChange = {
                         password = it
                     },
-                    label = "Password",
+                    label = stringResource(R.string.rg_password),
                     painterResource = painterResource(
                         id = R.drawable.icon_password
                     ),
@@ -132,9 +130,9 @@ fun Register(
                         }
 
                         var description = if (passwordVisible) {
-                            "Hide Password"
+                            stringResource(R.string.rg_hd_pwd)
                         } else {
-                            "Show Password"
+                            stringResource(R.string.rg_sw_pwd)
                         }
 
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -150,7 +148,7 @@ fun Register(
                     onValueChange = {
                         passwordConfirmation = it
                     },
-                    label = "Password Confirmation",
+                    label = stringResource(R.string.rg_password_confirmation),
                     painterResource = painterResource(
                         id = R.drawable.icon_password_confirmation
                     ),
@@ -163,9 +161,9 @@ fun Register(
                         }
 
                         var description = if (passwordVisible) {
-                            "Hide Password"
+                            stringResource(R.string.rg_hd_pwd)
                         } else {
-                            "Show Password"
+                            stringResource(R.string.rg_sw_pwd)
                         }
 
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {

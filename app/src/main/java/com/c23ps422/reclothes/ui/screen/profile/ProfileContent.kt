@@ -1,5 +1,6 @@
 package com.c23ps422.reclothes.ui.screen.profile
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,24 +12,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.model.response.UserData
 import com.c23ps422.reclothes.model.response.UserMeta
 import com.c23ps422.reclothes.model.response.UserProfileResponse
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.components.ReTextField
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
+import com.c23ps422.reclothes.R
 
 @Composable
 fun ProfileContent(
@@ -57,16 +58,19 @@ fun ProfileContent(
     ) {
         LazyColumn(modifier = modifier) {
             item {
-                Text(text = "Your Profile", style = MaterialTheme.typography.subtitle1.copy(
-                    fontWeight = FontWeight.Bold
-                ))
+                Text(
+                    text = stringResource(R.string.pc_title),
+                    style = MaterialTheme.typography.subtitle1.copy(
+                        fontWeight = FontWeight.Bold
+                    )
+                )
                 Spacer(modifier = Modifier.height(16.dp))
                 ReTextField(
                     value = name,
                     onValueChange = {
                         name = it
                     },
-                    label = "Nama Lengkap"
+                    label = stringResource(R.string.pc_name)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
@@ -74,43 +78,50 @@ fun ProfileContent(
                     onValueChange = {
                         email = it
                     },
-                    label = "Alamat Email"
+                    label = stringResource(R.string.pc_email)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
-                    value = accountNumber ?: "Nomor Rekening kamu masih kosong",
+                    value = accountNumber ?: stringResource(R.string.pc_account_number_empty),
                     onValueChange = {
                         accountNumber = it
                     },
-                    label = "Nomor Rekening"
+                    label = stringResource(R.string.pc_account_number)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
-                    value = address  ?: "Alamat kamu masih kosong",
+                    value = address ?: stringResource(R.string.pc_address_empty),
                     onValueChange = {
                         address = it
                     },
-                    label = "Alamat"
+                    label = stringResource(R.string.pc_address)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
-                    value = phoneNumber  ?: "Nomor Telepon kamu masih kosong",
+                    value = phoneNumber ?: stringResource(R.string.pc_phone_number_empty),
                     onValueChange = {
                         phoneNumber = it
                     },
-                    label = "Nomor Telepon"
+                    label = stringResource(R.string.pc_phone_number)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 ReTextField(
-                    value = accountType  ?: "Tipe Rekening kamu masih kosong",
+                    value = accountType ?: stringResource(R.string.pc_account_type_empty),
                     onValueChange = {
                         accountType = it
                     },
-                    label = "Tipe Rekening"
+                    label = stringResource(R.string.pc_account_type)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                ReButtonFullRounded(text = "Update Profile", onClick = {
-                    userViewModel.updateUser(name = name, email = email, account_number = accountNumber ?: "", address = address ?: "", phone_number = phoneNumber ?: "", account_type = accountType ?: "")
+                ReButtonFullRounded(text = stringResource(R.string.pc_update), onClick = {
+                    userViewModel.updateUser(
+                        name = name,
+                        email = email,
+                        account_number = accountNumber ?: "",
+                        address = address ?: "",
+                        phone_number = phoneNumber ?: "",
+                        account_type = accountType ?: ""
+                    )
                 })
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedButton(modifier = Modifier
@@ -119,52 +130,33 @@ fun ProfileContent(
                     shape = RoundedCornerShape(50.dp),
                     onClick = {})
                 {
-                    Text(text = "Logout")
+                    Text(stringResource(R.string.pc_logout))
                 }
-//                Text(
-//                    text = userInfo.data.name,
-//                    style = MaterialTheme.typography.h5,
-//                    textAlign = TextAlign.Center,
-//                    modifier = Modifier
-//                        .padding(top = 16.dp)
-//                        .fillMaxWidth()
-//                )
-//
-//                Text(
-//                    text = userInfo.data.email,
-//                    style = MaterialTheme.typography.body1,
-//                    textAlign = TextAlign.Center,
-//                    modifier = Modifier
-//                        .padding(top = 8.dp)
-//                        .fillMaxWidth()
-//                )
-//
-//                Text(
-//                    text = userInfo.data.phoneNumber ?: "(Nomor HP kamu masih kosong)",
-//                    style = MaterialTheme.typography.body1,
-//                    textAlign = TextAlign.Center,
-//                    modifier = Modifier
-//                        .padding(top = 8.dp)
-//                        .fillMaxWidth()
-//                )
-//
-//                Text(
-//                    text = userInfo.data.address ?: "(Alamat kamu masih kosong)",
-//                    style = MaterialTheme.typography.body1,
-//                    textAlign = TextAlign.Center,
-//                    modifier = Modifier
-//                        .padding(top = 8.dp)
-//                        .fillMaxWidth()
-//                )
-//
-//                Text(
-//                    text = userInfo.data.accountNumber ?: "(No Rekening kamu masih kosong)",
-//                    style = MaterialTheme.typography.body1,
-//                    textAlign = TextAlign.Center,
-//                    modifier = Modifier
-//                        .padding(top = 8.dp)
-//                        .fillMaxWidth()
-//                )
+            }
+        }
+    }
+
+    userViewModel.uiState2.collectAsState().value.let { uiState ->
+        when (uiState) {
+            is UiState.Idle -> {}
+
+            is UiState.Loading -> {
+            }
+
+            is UiState.Success -> {
+                Toast.makeText(
+                    context,
+                    stringResource(R.string.pc_update_success),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            is UiState.Error -> {
+                Toast.makeText(
+                    context,
+                    stringResource(R.string.pc_update_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

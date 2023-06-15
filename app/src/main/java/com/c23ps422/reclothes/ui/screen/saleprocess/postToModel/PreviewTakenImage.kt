@@ -22,13 +22,8 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -43,6 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.common.compressImage
 import com.c23ps422.reclothes.data.ReClothesPreference
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.screen.login.dataStore
@@ -60,6 +56,11 @@ fun PreviewTakenImage(
     // Get ID Cloth from DataStore for Post Cloth Image to API
     LaunchedEffect(key1 = Unit) {
         idCloth = pref.getId().firstOrNull().toString()
+    }
+
+    // Compress the image file
+    val compressedPhoto: File? by remember(photo) {
+        mutableStateOf(compressImage(photo))
     }
 
     val context = LocalContext.current
@@ -123,8 +124,8 @@ fun PreviewTakenImage(
                 ReButtonFullRounded(
                     text = "Continue",
                     onClick = {
-                        if (photo != null) {
-                            postToModelViewModel.createClothImage(photo, idCloth)
+                        if (compressedPhoto != null) {
+                            postToModelViewModel.createClothImage(compressedPhoto!!, idCloth)
                         }
                     })
                 Spacer(modifier = Modifier.size(8.dp))

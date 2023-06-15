@@ -10,8 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 
 @Composable
@@ -29,7 +31,7 @@ fun ReButtonFullRounded(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color(
                 android.graphics.Color.parseColor(
-                    "#27360B"
+                    stringResource(R.string.reclothes_dark_green)
                 )
             )
         )

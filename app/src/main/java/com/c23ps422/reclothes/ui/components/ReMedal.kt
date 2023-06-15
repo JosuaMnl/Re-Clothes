@@ -8,14 +8,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.c23ps422.reclothes.R
 
 @Composable
 fun ReMedal(
@@ -32,7 +31,7 @@ fun ReMedal(
         ) {
             AsyncImage(
                 model = photoUrl,
-                contentDescription = "Medal Card",
+                contentDescription = stringResource(R.string.rm_image_desc),
                 modifier.size(120.dp)
             )
             Column(

@@ -33,7 +33,7 @@ fun ReSearchBar(
         value = query,
         onValueChange = onQueryChange,
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color(android.graphics.Color.parseColor("#D4D3A8")),
+            backgroundColor = Color(android.graphics.Color.parseColor(stringResource(R.string.reclothes_skin))),
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,

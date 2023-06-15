@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -268,7 +269,13 @@ fun NavGraph(
                         postToModelViewModel = postToModelViewModel,
                         navController = navController,
                         pref = pref,
-                        photo = capturedImage
+                        photo = capturedImage,
+                        onBackClick = {
+                            navController.popBackStack()
+                        },
+                        onCancel = {
+                            navController.navigate(Screen.Home.route)
+                        }
                     )
                 }
 
@@ -400,8 +407,8 @@ fun SheetContent(
     modifier: Modifier = Modifier,
 ) {
     val radioOptions = listOf(
-        "Satuan (1-15 Pcs)",
-        "Karungan/Plastik (>15 Pcs)",
+        stringResource(R.string.rca_sc_one),
+        stringResource(R.string.rca_sc_lot),
     )
 
     var radioStatus by remember {
@@ -425,7 +432,7 @@ fun SheetContent(
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Text(text = "Banyak pakaian bekas yang ingin dijual?", fontSize = 24.sp)
+        Text(text = stringResource(R.string.rca_sc_title), fontSize = 24.sp)
         radioOptions.forEachIndexed { index, option: String ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -452,12 +459,13 @@ fun SheetContent(
             }
         }
 
-        amountOfClothes = if (radioStatus == 0) "small" else "bulk"
+        amountOfClothes =
+            if (radioStatus == 0) stringResource(R.string.rca_sc_small) else stringResource(R.string.rca_sc_bulk)
         screen = if (radioStatus == 0) Screen.ChooseImage.route else Screen.DataAllClothes.route
 
         Spacer(modifier = Modifier.size(8.dp))
         ReButtonFullRounded(
-            text = "Continue",
+            text = stringResource(R.string.rca_sc_continue),
             onClick = {
                 onContinueClick()
                 // Post Data

@@ -93,7 +93,7 @@ fun DetailDIYContent(
             Box {
                 AsyncImage(
                     model = photoUrl,
-                    contentDescription = "Video thumbnail",
+                    contentDescription = stringResource(R.string.dds_image_desc),
                     contentScale = ContentScale.Crop,
                     modifier = modifier
                         .height(400.dp)
@@ -143,7 +143,7 @@ fun DetailDIYContent(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            ReButtonFullRounded(text = "Watch", onClick = { context.startActivity(intent) })
+            ReButtonFullRounded(text = stringResource(R.string.dds_watch), onClick = { context.startActivity(intent) })
         }
     }
 }

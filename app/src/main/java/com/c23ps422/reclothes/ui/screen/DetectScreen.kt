@@ -26,9 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import com.c23ps422.reclothes.R
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -91,7 +93,7 @@ fun DetectScreen(
             content = {
                 Icon(
                     imageVector = Icons.Sharp.Lens,
-                    contentDescription = "Take picture",
+                    contentDescription = stringResource(R.string.ds_icon),
                     tint = Color.White,
                     modifier = Modifier
                         .size(100.dp)

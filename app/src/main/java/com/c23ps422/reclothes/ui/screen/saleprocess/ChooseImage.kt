@@ -1,5 +1,6 @@
 package com.c23ps422.reclothes.ui.screen.saleprocess
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +28,7 @@ fun ChooseImage(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
+    val context = LocalContext.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -48,7 +51,9 @@ fun ChooseImage(
                 icon = R.drawable.camera
             )
             ReOutlinedButton(
-                onClick = { },
+                onClick = {
+                    Toast.makeText(context, R.string.in_progress, Toast.LENGTH_SHORT).show()
+                },
                 text = stringResource(R.string.ci_gallery),
                 icon = R.drawable.gallery
             )

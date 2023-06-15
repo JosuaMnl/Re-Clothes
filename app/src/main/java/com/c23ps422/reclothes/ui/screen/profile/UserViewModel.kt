@@ -21,7 +21,7 @@ class UserViewModel(
     val uiState: StateFlow<UiState<UserProfileResponse>> get() = _uiState
 
     private val _uiState2: MutableStateFlow<UiState<UserProfileResponse>> =
-        MutableStateFlow(UiState.Loading)
+        MutableStateFlow(UiState.Idle)
     val uiState2: StateFlow<UiState<UserProfileResponse>> get() = _uiState2
 
     fun getUser() {
@@ -43,6 +43,7 @@ class UserViewModel(
         account_type: String
     ) {
         viewModelScope.launch {
+            _uiState2.emit(UiState.Loading)
             repository.updateUser(
                 name = name,
                 email = email,

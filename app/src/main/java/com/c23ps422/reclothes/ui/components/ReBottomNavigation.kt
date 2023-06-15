@@ -1,20 +1,25 @@
 package com.c23ps422.reclothes.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,7 +46,7 @@ fun ReBottomNavigationPreview() {
             )
         }
     }, floatingActionButtonPosition = FabPosition.Center, isFloatingActionButtonDocked = true) {
-
+        it
     }
 }
 
@@ -106,14 +111,5 @@ fun ReBottomNavigation(navController: NavHostController, modifier: Modifier = Mo
                 },
             )
         }
-//        BottomNavigation(
-//            modifier = Modifier
-//                .fillMaxHeight()
-//                .fillMaxWidth(),
-//            elevation = 8.dp,
-//            backgroundColor = MaterialTheme.colors.secondary
-//        ) {
-//
-//        }
     }
 }

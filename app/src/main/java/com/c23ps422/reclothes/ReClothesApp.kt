@@ -3,7 +3,6 @@ package com.c23ps422.reclothes
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -33,7 +32,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.data.ReClothesPreference
-import com.c23ps422.reclothes.model.response.ClothItem
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
@@ -48,6 +46,7 @@ import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.ClothesIdentity
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
+import com.c23ps422.reclothes.ui.screen.saleprocess.TransactionStatus
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PostToModelViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PreviewTakenImage
 import kotlinx.coroutines.delay
@@ -205,17 +204,23 @@ fun NavGraph(
             floatingActionButton = {
                 // Tsukifell: While the page on DetailDIY screen, hide the fab too
                 if (currentRoute !in noBottomBarFab && showBottomBarFab) {
-                    FloatingActionButton(onClick = {
-                        scope.launch {
-                            if (sheetState.isVisible) {
-                                sheetState.hide()
-                            } else {
-                                sheetState.show()
+                    FloatingActionButton(
+                        onClick = {
+                            scope.launch {
+                                if (sheetState.isVisible) {
+                                    sheetState.hide()
+                                } else {
+                                    sheetState.show()
+                                }
                             }
-                        }
-                    }
+                        },
+                        backgroundColor = Color(android.graphics.Color.parseColor("#27360B"))
                     ) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "fab")
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "fab",
+                            tint = Color.White
+                        )
                     }
                 }
             },
@@ -230,6 +235,7 @@ fun NavGraph(
             ) {
                 composable(Screen.Home.route) {
                     HomeScreen(
+                        username = userViewModel.username,
                         navigateToDetail = { diyId ->
                             navController.navigate(Screen.DetailDIY.createRoute(diyId))
                         }
@@ -277,7 +283,7 @@ fun NavGraph(
                                 navController.navigate(Screen.PreviewTakenImage.route)
                             }
                         },
-                        onError = { exception ->
+                        onError = {
 
                         },
                     )
@@ -300,6 +306,10 @@ fun NavGraph(
                             navController.navigate(Screen.Login.route)
                         }
                     )
+                }
+
+                composable(Screen.TransactionStatus.route) {
+                    TransactionStatus(onBackPressed = {})
                 }
 
                 composable(Screen.Login.route) {

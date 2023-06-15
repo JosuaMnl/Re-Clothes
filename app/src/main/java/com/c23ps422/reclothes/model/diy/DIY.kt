@@ -7,4 +7,5 @@ data class DIY(
     val creator: String,
     val description: String,
     val videoUrl: String,
+    val viewsCount: String
 )

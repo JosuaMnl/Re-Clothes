@@ -27,6 +27,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -40,15 +41,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.os.bundleOf
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.common.compressImage
 import com.c23ps422.reclothes.data.ReClothesPreference
-import com.c23ps422.reclothes.model.response.ClothItem
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.login.dataStore
@@ -69,6 +69,11 @@ fun PreviewTakenImage(
     // Get ID Cloth from DataStore for Post Cloth Image to API
     LaunchedEffect(key1 = Unit) {
         idCloth = pref.getId().firstOrNull().toString()
+    }
+
+    // Compress the image file
+    val compressedPhoto: File? by remember(photo) {
+        mutableStateOf(compressImage(photo))
     }
 
     val context = LocalContext.current
@@ -129,9 +134,8 @@ fun PreviewTakenImage(
                 ReButtonFullRounded(
                     text = "Continue",
                     onClick = {
-//                        Log.d("PreviewTakenImage", idCloth)
-                        if (photo != null) {
-                            postToModelViewModel.createClothImage(photo, idCloth)
+                        if (compressedPhoto != null) {
+                            postToModelViewModel.createClothImage(compressedPhoto!!, idCloth)
                         }
                     })
                 Spacer(modifier = Modifier.size(8.dp))

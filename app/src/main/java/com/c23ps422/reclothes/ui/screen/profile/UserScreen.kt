@@ -24,6 +24,7 @@ fun UserScreen() {
 
 @Composable
 fun Profile(userViewModel: UserViewModel) {
+    userViewModel.getUser()
     userViewModel.uiState.collectAsState().value.let { uiState ->
         when (uiState) {
             is UiState.Idle -> {}

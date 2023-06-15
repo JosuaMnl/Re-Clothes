@@ -23,6 +23,7 @@ class CreateUserClothViewModel(
 
     fun createUserCloth(user_id: String, amount_of_clothes: String) {
         viewModelScope.launch {
+            _uiState.emit(UiState.Loading)
             repository.createUserCloth(user_id, amount_of_clothes).catch { e ->
                 _uiState.value = UiState.Error(e.message.toString())
             }.collect { data ->

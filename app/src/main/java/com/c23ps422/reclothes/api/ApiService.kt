@@ -1,6 +1,7 @@
 package com.c23ps422.reclothes.api
 
 import LoginRegisterResponse
+import com.c23ps422.reclothes.model.response.CreateClothResponse
 import com.c23ps422.reclothes.model.response.CreateUserClothResponse
 import com.c23ps422.reclothes.model.response.UploadClothResponse
 import com.c23ps422.reclothes.model.response.UserProfileResponse
@@ -53,4 +54,12 @@ interface ApiService {
         @Field("phone_number") phone_number: String,
         @Field("account_type") account_type: String
     ): UserProfileResponse
+
+    @FormUrlEncoded
+    @POST("cloth/create")
+    suspend fun createCloth(
+        @Field("cloth_image_id") clothImageId: String,
+        @Field("type") type: String,
+        @Field("description") description: String
+    ): CreateClothResponse
 }

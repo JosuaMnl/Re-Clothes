@@ -44,9 +44,11 @@ import com.c23ps422.reclothes.ui.screen.profile.UserScreen
 import com.c23ps422.reclothes.ui.screen.profile.UserViewModel
 import com.c23ps422.reclothes.ui.screen.register.Register
 import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
-import com.c23ps422.reclothes.ui.screen.saleprocess.ClothesIdentity
+import com.c23ps422.reclothes.ui.screen.saleprocess.clothesIdentity.ClothesIdentity
 import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
+import com.c23ps422.reclothes.ui.screen.saleprocess.ListOfClothes
 import com.c23ps422.reclothes.ui.screen.saleprocess.TransactionStatus
+import com.c23ps422.reclothes.ui.screen.saleprocess.clothesIdentity.ClothesIdentityViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PostToModelViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PreviewTakenImage
 import kotlinx.coroutines.delay
@@ -145,6 +147,9 @@ fun NavGraph(
     val postToModelViewModel: PostToModelViewModel =
         viewModel(factory = PostToModelViewModel.provideFactory(context))
 
+    val clothesIdentityViewModel: ClothesIdentityViewModel =
+        viewModel(factory = ClothesIdentityViewModel.provideFactory(context))
+
     val activity = context.findActivity()
 
     val currentDestination = navBackStackEntry?.destination
@@ -165,7 +170,8 @@ fun NavGraph(
         Screen.DataAllClothes.route,
         Screen.TakeImage.route,
         Screen.PreviewTakenImage.route,
-        Screen.ClothesIdentity.route
+        Screen.ClothesIdentity.route,
+        Screen.ListOfClothes.route
     )
 
     var showBottomBarFab by remember {
@@ -321,7 +327,21 @@ fun NavGraph(
                 }
 
                 composable(Screen.ClothesIdentity.route) {
-                    ClothesIdentity(postToModelViewModel = postToModelViewModel)
+                    ClothesIdentity(
+                        clothesIdentityViewModel = clothesIdentityViewModel,
+                        navController = navController,
+                        postToModelViewModel = postToModelViewModel
+                    )
+                }
+
+                composable(Screen.ListOfClothes.route) {
+                    ListOfClothes(
+                        clothesIdentityViewModel = clothesIdentityViewModel,
+                        navController = navController,
+                        onClick = {
+                            navController.navigate(Screen.TakeImage.route)
+                        }
+                    )
                 }
             }
         }

@@ -4,7 +4,12 @@
 <li> Josua Manalu (A263DSX1027) </li>
 <h2> Build With </h2>
 
-<p> This project is build with </p>
+<h2> Backgrounder </h2>
+<p>We are a Mobile Development team, creating "ReClothes", an application built on Kotlin and Jetpack Compose, utilizing the Model-View-ViewModel (MVVM) architecture. The app facilitates the sale of used clothes while promoting sustainability. Besides user authentication and profile personalization, the application hosts unique features like Do-It-Yourself (DIY) Recommendations and a Medals Gamification system to encourage user engagement.
+A standout feature of ReClothes is a machine learning functionality that assesses the quality and identifies the fabric of used clothing. This innovative feature, powered by a cloud-deployed model from our Cloud Computing team, streamlines the user experience. All sales data is stored securely via APIs developed by our Cloud Computing team, ensuring seamless operation and making ReClothes a forefront runner in bridging technology and sustainability.
+</p>
+
+<h2> This project is build with </h2>
 
 <li> Kotlin </li>
 <li> Jetpack Compose </li>

@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen.saleprocess
+package com.c23ps422.reclothes.ui.screen.saleprocess.postToModel
 
 import android.widget.Toast
 import androidx.compose.foundation.Image

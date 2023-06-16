@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.model.response.UploadClothResponse
 import com.c23ps422.reclothes.repository.PostToModelRepository

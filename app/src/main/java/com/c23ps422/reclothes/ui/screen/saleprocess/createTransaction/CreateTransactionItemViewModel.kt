@@ -1,30 +1,33 @@
-package com.c23ps422.reclothes.ui.screen
+package com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.c23ps422.reclothes.common.UiState
 import com.c23ps422.reclothes.di.Injection
-import com.c23ps422.reclothes.model.response.CreateUserClothResponse
-import com.c23ps422.reclothes.repository.CreateUserClothRepository
+import com.c23ps422.reclothes.helper.UiState
+import com.c23ps422.reclothes.model.response.CreateTransactionItemResponse
+import com.c23ps422.reclothes.repository.CreateTransactionItemRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class CreateUserClothViewModel(
-    private val repository: CreateUserClothRepository
-) : ViewModel() {
-
-    private val _uiState: MutableStateFlow<UiState<CreateUserClothResponse>> =
+class CreateTransactionItemViewModel(
+    private val repository: CreateTransactionItemRepository
+): ViewModel() {
+    private val _uiState: MutableStateFlow<UiState<CreateTransactionItemResponse>> =
         MutableStateFlow(UiState.Idle)
-    val uiState: StateFlow<UiState<CreateUserClothResponse>> get() = _uiState
+    val uiState: StateFlow<UiState<CreateTransactionItemResponse>> get() = _uiState
 
-    fun createUserCloth(user_id: String, amount_of_clothes: String) {
+    fun createTransactionItem(
+        transaction_id: String,
+        cloth_id: String
+    ) {
         viewModelScope.launch {
             _uiState.emit(UiState.Loading)
-            repository.createUserCloth(user_id, amount_of_clothes).catch { e ->
+            repository.createTransactionItem(transaction_id, cloth_id).catch { e ->
                 _uiState.value = UiState.Error(e.message.toString())
             }.collect { data ->
                 _uiState.value = UiState.Success(data)
@@ -32,13 +35,14 @@ class CreateUserClothViewModel(
         }
     }
 
+
     companion object {
         fun provideFactory(
             context: Context,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return CreateUserClothViewModel(Injection.provideCreateUserClothRepository(context)) as T
+                return CreateTransactionItemViewModel(Injection.provideCreateTransactionItemRepository(context)) as T
             }
         }
     }

@@ -5,11 +5,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.model.response.CreateClothResponse
 import com.c23ps422.reclothes.repository.ClothesIdentityRepository
-import com.c23ps422.reclothes.ui.screen.saleprocess.ClothesItem
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.ClothesItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -27,18 +27,18 @@ class ClothesIdentityViewModel(
 
     fun createCloth(
         image: String,
-        cloth_image_id: String,
+        cloth_id: String,
         type: String,
         description: String
     ) {
         viewModelScope.launch {
             _uiState.emit(UiState.Loading)
-            repository.createCloth(cloth_image_id, type, description).catch { e ->
+            repository.createCloth(cloth_id, type, description).catch { e ->
                 _uiState.value = UiState.Error(e.message.toString())
             }.collect { data ->
                 _uiState.value = UiState.Success(data)
                 val newCloth = ClothesItem(
-                    id = cloth_image_id,
+                    id = data.data.cloth.id,
                     type = type,
                     description = description,
                     clothImage = image

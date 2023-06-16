@@ -2,6 +2,8 @@ package com.c23ps422.reclothes.api
 
 import LoginRegisterResponse
 import com.c23ps422.reclothes.model.response.CreateClothResponse
+import com.c23ps422.reclothes.model.response.CreateTransactionItemResponse
+import com.c23ps422.reclothes.model.response.CreateTransactionResponse
 import com.c23ps422.reclothes.model.response.CreateUserClothResponse
 import com.c23ps422.reclothes.model.response.UploadClothResponse
 import com.c23ps422.reclothes.model.response.UserProfileResponse
@@ -62,4 +64,14 @@ interface ApiService {
         @Field("type") type: String,
         @Field("description") description: String
     ): CreateClothResponse
+
+    @POST("transaction/create")
+    suspend fun createTransaction(): CreateTransactionResponse
+
+    @FormUrlEncoded
+    @POST("transaction/item/create")
+    suspend fun createItemTransaction(
+        @Field("transaction_id") transaction_id: String,
+        @Field("cloth_id") cloth_id: String
+    ): CreateTransactionItemResponse
 }

@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.common
+package com.c23ps422.reclothes.helper
 
 sealed class UiState<out T: Any?> {
     object Idle: UiState<Nothing>()

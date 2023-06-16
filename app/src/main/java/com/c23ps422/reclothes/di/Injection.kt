@@ -2,7 +2,10 @@ package com.c23ps422.reclothes.di
 
 import android.content.Context
 import com.c23ps422.reclothes.api.ApiConfig
+import com.c23ps422.reclothes.model.response.CreateTransactionItemResponse
 import com.c23ps422.reclothes.repository.ClothesIdentityRepository
+import com.c23ps422.reclothes.repository.CreateTransactionItemRepository
+import com.c23ps422.reclothes.repository.CreateTransactionRepository
 import com.c23ps422.reclothes.repository.CreateUserClothRepository
 import com.c23ps422.reclothes.repository.DIYRepository
 import com.c23ps422.reclothes.repository.MedalsRepository
@@ -36,5 +39,15 @@ object Injection {
     fun provideClothesIdentityRepository(context: Context): ClothesIdentityRepository {
         val apiService = ApiConfig.getApiService(context)
         return ClothesIdentityRepository.getInstance(apiService)
+    }
+
+    fun provideCreateTransactionRepository(context: Context) : CreateTransactionRepository {
+        val apiService = ApiConfig.getApiService(context)
+        return CreateTransactionRepository.getInstance(apiService)
+    }
+
+    fun provideCreateTransactionItemRepository(context: Context) : CreateTransactionItemRepository {
+        val apiService = ApiConfig.getApiService(context)
+        return CreateTransactionItemRepository.getInstance(apiService)
     }
 }

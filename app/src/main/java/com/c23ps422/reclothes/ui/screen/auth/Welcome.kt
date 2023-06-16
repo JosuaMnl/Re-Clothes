@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen
+package com.c23ps422.reclothes.ui.screen.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.c23ps422.reclothes.R
-import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 
 @Composable
 fun Welcome(

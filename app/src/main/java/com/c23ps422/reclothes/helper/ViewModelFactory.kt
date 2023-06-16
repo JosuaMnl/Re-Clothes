@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.common
+package com.c23ps422.reclothes.helper
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,6 @@ import com.c23ps422.reclothes.repository.MedalsRepository
 import com.c23ps422.reclothes.repository.Repository
 import com.c23ps422.reclothes.ui.screen.diy.DIYViewModel
 import com.c23ps422.reclothes.ui.screen.diy.DetailDIYViewModel
-import com.c23ps422.reclothes.ui.screen.login.LoginViewModel
 import com.c23ps422.reclothes.ui.screen.medals.MedalsViewModel
 
 class ViewModelFactory(

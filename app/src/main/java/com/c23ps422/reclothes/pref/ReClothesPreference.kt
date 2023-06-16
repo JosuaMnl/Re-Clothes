@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.data
+package com.c23ps422.reclothes.pref
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

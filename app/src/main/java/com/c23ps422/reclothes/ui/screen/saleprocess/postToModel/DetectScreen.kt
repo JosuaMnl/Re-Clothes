@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen
+package com.c23ps422.reclothes.ui.screen.saleprocess.postToModel
 
 import android.content.Context
 import android.util.Log

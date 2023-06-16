@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen.saleprocess
+package com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

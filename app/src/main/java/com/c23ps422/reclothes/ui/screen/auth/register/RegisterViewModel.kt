@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen.register
+package com.c23ps422.reclothes.ui.screen.auth.register
 
 import Meta
 import android.app.Application
@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.c23ps422.reclothes.api.ApiConfig
-import com.c23ps422.reclothes.common.UiState
-import com.c23ps422.reclothes.data.ReClothesPreference
+import com.c23ps422.reclothes.helper.UiState
+import com.c23ps422.reclothes.pref.ReClothesPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

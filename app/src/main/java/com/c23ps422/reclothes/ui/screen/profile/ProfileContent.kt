@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.model.response.UserData
 import com.c23ps422.reclothes.model.response.UserMeta
 import com.c23ps422.reclothes.model.response.UserProfileResponse

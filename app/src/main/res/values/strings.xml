@@ -17,6 +17,8 @@
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
     <string name="your_clothes_preview">Berikut adalah gambar pakaianmu</string>
     <string name="in_progress">This feature is in progress</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_continue">Continue</string>
 
     <!-- String for HomeScreen -->
     <string name="hc_name">Welcome</string>
@@ -66,8 +68,6 @@
 
     <!-- String for PreviewTakenImage -->
     <string name="pti_photo_desc">Preview Taken Image</string>
-    <string name="pti_cancel">Cancel</string>
-    <string name="pti_continue">Continue</string>
 
     <!-- String for ReBottomNavigation -->
     <string name="rbn_fab_desc">Floating Action Button</string>
@@ -91,7 +91,7 @@
     <string name="rbfr_watch">Watch</string>
 
     <!-- String for ReClothesApp-->
-    <string name="rca_sc_one">Satuan (1-15 Pcs)</string>
+    <string name="rca_sc_one">Satuan (1–15 Pcs)</string>
     <string name="rca_sc_lot">Karungan/Plastik (>15 Pcs)</string>
     <string name="rca_sc_continue">Continue</string>
     <string name="rca_sc_title">Banyak pakaian bekas yang ingin dijual?</string>
@@ -103,5 +103,9 @@
     <string name="ci_camera">Camera</string>
     <string name="ci_gallery">Gallery</string>
     <string name="ci_note">Note : Gambar yang dimasukkan hanya bisa satu</string>
+
+    <!--   String for ListOfCLothes -->
+    <string name="lio_add_clothes">Tambah Pakaian</string>
+    <string name="lio_list_of_clothes">Daftar pakaian bekas yang ingin dijual :</string>
 
 </resources>

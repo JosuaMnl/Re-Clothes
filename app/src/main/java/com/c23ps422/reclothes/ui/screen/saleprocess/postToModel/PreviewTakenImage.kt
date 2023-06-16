@@ -35,11 +35,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.c23ps422.reclothes.R
-import com.c23ps422.reclothes.common.UiState
-import com.c23ps422.reclothes.common.compressImage
-import com.c23ps422.reclothes.data.ReClothesPreference
+import com.c23ps422.reclothes.helper.UiState
+import com.c23ps422.reclothes.helper.compressImage
+import com.c23ps422.reclothes.pref.ReClothesPreference
 import com.c23ps422.reclothes.ui.navigation.Screen
-import com.c23ps422.reclothes.ui.screen.login.dataStore
+import com.c23ps422.reclothes.ui.screen.auth.login.dataStore
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.io.File
@@ -132,7 +132,7 @@ fun PreviewTakenImage(
                         .height(42.dp),
                     shape = RoundedCornerShape(50.dp), onClick = onCancel
                 ) {
-                    Text(stringResource(R.string.pti_cancel))
+                    Text(stringResource(R.string.btn_cancel))
                 }
                 Button(modifier = Modifier
                     .height(42.dp),
@@ -141,7 +141,7 @@ fun PreviewTakenImage(
                             postToModelViewModel.createClothImage(compressedPhoto!!, idCloth)
                         }
                     }) {
-                    Text(stringResource(R.string.pti_continue))
+                    Text(stringResource(R.string.btn_continue))
                 }
             }
         }

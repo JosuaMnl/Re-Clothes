@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.c23ps422.reclothes.R
-import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 
 @Composable

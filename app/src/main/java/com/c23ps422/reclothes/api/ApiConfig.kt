@@ -3,8 +3,8 @@ package com.c23ps422.reclothes.api
 import android.content.Context
 import com.c23ps422.reclothes.BuildConfig
 import com.c23ps422.reclothes.api.ApiConfig.Companion.getApiService
-import com.c23ps422.reclothes.data.ReClothesPreference
-import com.c23ps422.reclothes.ui.screen.login.dataStore
+import com.c23ps422.reclothes.pref.ReClothesPreference
+import com.c23ps422.reclothes.ui.screen.auth.login.dataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking

@@ -4,13 +4,12 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.model.response.UserProfileResponse
 import com.c23ps422.reclothes.repository.UserRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.lang.Thread.State
 
 class UserViewModel(
     private val repository: UserRepository

@@ -15,11 +15,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.c23ps422.reclothes.R
-import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.di.Injection
 import com.c23ps422.reclothes.model.medals.Medals
 import com.c23ps422.reclothes.ui.components.ReMedal
-import com.c23ps422.reclothes.common.ViewModelFactory
+import com.c23ps422.reclothes.helper.ViewModelFactory
 
 @Composable
 fun MedalsScreen(

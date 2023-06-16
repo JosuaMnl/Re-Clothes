@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.ui.screen
+package com.c23ps422.reclothes.ui.screen.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.c23ps422.reclothes.R
-import com.c23ps422.reclothes.common.UiState
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.model.diy.DIY
 import com.c23ps422.reclothes.model.medals.Medals
 import com.c23ps422.reclothes.ui.components.ReCard

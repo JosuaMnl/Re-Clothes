@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes.common
+package com.c23ps422.reclothes.helper
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

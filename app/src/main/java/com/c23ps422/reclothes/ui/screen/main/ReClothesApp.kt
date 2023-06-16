@@ -1,4 +1,4 @@
-package com.c23ps422.reclothes
+package com.c23ps422.reclothes.ui.screen.main
 
 import android.app.Activity
 import android.content.Context
@@ -31,27 +31,34 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.c23ps422.reclothes.common.UiState
-import com.c23ps422.reclothes.data.ReClothesPreference
+import com.c23ps422.reclothes.R
+import com.c23ps422.reclothes.helper.UiState
+import com.c23ps422.reclothes.pref.ReClothesPreference
 import com.c23ps422.reclothes.ui.components.ReBottomNavigation
 import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.*
+import com.c23ps422.reclothes.ui.screen.auth.Welcome
 import com.c23ps422.reclothes.ui.screen.diy.DetailDIYScreen
-import com.c23ps422.reclothes.ui.screen.login.Login
-import com.c23ps422.reclothes.ui.screen.login.dataStore
+import com.c23ps422.reclothes.ui.screen.auth.login.Login
+import com.c23ps422.reclothes.ui.screen.auth.login.dataStore
 import com.c23ps422.reclothes.ui.screen.medals.MedalsScreen
 import com.c23ps422.reclothes.ui.screen.profile.UserScreen
 import com.c23ps422.reclothes.ui.screen.profile.UserViewModel
-import com.c23ps422.reclothes.ui.screen.register.Register
-import com.c23ps422.reclothes.ui.screen.saleprocess.ChooseImage
+import com.c23ps422.reclothes.ui.screen.auth.register.Register
+import com.c23ps422.reclothes.ui.screen.home.HomeScreen
+import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.ChooseImage
 import com.c23ps422.reclothes.ui.screen.saleprocess.clothesIdentity.ClothesIdentity
-import com.c23ps422.reclothes.ui.screen.saleprocess.DataAllClothesScreen
-import com.c23ps422.reclothes.ui.screen.saleprocess.ListOfClothes
-import com.c23ps422.reclothes.ui.screen.saleprocess.TransactionStatus
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.DataAllClothesScreen
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.ListOfClothes
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.TransactionStatus
 import com.c23ps422.reclothes.ui.screen.saleprocess.clothesIdentity.ClothesIdentityViewModel
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.CreateTransactionItemViewModel
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.CreateTransactionViewModel
+import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.DetectScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PostToModelViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PreviewTakenImage
+import com.c23ps422.reclothes.ui.screen.splash.SplashScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -150,6 +157,12 @@ fun NavGraph(
 
     val clothesIdentityViewModel: ClothesIdentityViewModel =
         viewModel(factory = ClothesIdentityViewModel.provideFactory(context))
+
+    val createTransactionViewModel: CreateTransactionViewModel =
+        viewModel(factory = CreateTransactionViewModel.provideFactory(context))
+
+    val createTransactionItemViewModel: CreateTransactionItemViewModel =
+        viewModel(factory = CreateTransactionItemViewModel.provideFactory(context))
 
     val activity = context.findActivity()
 
@@ -345,9 +358,8 @@ fun NavGraph(
                     ListOfClothes(
                         clothesIdentityViewModel = clothesIdentityViewModel,
                         navController = navController,
-                        onClick = {
-                            navController.navigate(Screen.TakeImage.route)
-                        }
+                        createTransactionViewModel = createTransactionViewModel,
+                        createTransactionItemViewModel = createTransactionItemViewModel
                     )
                 }
             }

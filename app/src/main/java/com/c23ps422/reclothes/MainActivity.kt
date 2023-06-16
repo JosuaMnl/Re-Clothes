@@ -21,22 +21,6 @@ class MainActivity : ComponentActivity() {
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
 
-//    private var shouldShowCamera: MutableState<Boolean> = mutableStateOf(false)
-//
-//    private lateinit var photoUri: Uri
-//    private var shouldShowPhoto: MutableState<Boolean> = mutableStateOf(false)
-
-//    private val requestPermissionLauncher = registerForActivityResult(
-//        ActivityResultContracts.RequestPermission()
-//    ) { isGranted ->
-//        if (isGranted) {
-//            Log.i("ReqGrant", "Permission granted")
-//            shouldShowCamera.value = true
-//        } else {
-//            Log.i("ReqGrant", "Permission denied")
-//        }
-//    }
-
     private fun requestCameraPermission() {
         when {
             ContextCompat.checkSelfPermission(
@@ -76,39 +60,11 @@ class MainActivity : ComponentActivity() {
                         outputDirectory = outputDirectory,
                         cameraExecutor = cameraExecutor
                     )
-//                    if (shouldShowCamera.value) {
-//                        CameraView(
-//                            outputDirectory = outputDirectory,
-//                            executor = cameraExecutor,
-//                            onImageCaptured = ::handleImageCapture,
-//                            onError = { Log.e("err", "View error: ", it) }
-//                        )
-//                    }
-//
-//                    if (shouldShowPhoto.value) {
-//                        Image(
-//                            painter = rememberImagePainter(photoUri),
-//                            contentDescription = null,
-//                            modifier = Modifier.fillMaxSize()
-//                        )
-//                    }
                 }
             }
             requestCameraPermission()
         }
     }
-
-//    private fun handleImageCapture(uri: Uri) {
-//        shouldShowCamera.value = false
-//
-//        photoUri = uri
-//        shouldShowPhoto.value = true
-//
-//        val photoFile = File(uri.path)
-//        Log.d("pfile", photoFile.toString())
-//        val base64String = convertFileToBase64(photoFile)
-//        Log.d("Base", base64String)
-//    }
 
     private fun getOutputDirectory(): File {
         val mediaDir = externalMediaDirs.firstOrNull()?.let {
@@ -122,15 +78,6 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         cameraExecutor.shutdown()
     }
-
-//    @Throws(IOException::class)
-//    private fun convertFileToBase64(file: File): String {
-//        val inputStream = FileInputStream(file)
-//        val bytes = ByteArray(file.length().toInt())
-//        inputStream.read(bytes)
-//        inputStream.close()
-//        return Base64.encodeToString(bytes, Base64.DEFAULT)
-//    }
 
     companion object{
         private const val CAMERA_PERMISSION_REQUEST_CODE = 123

@@ -211,6 +211,7 @@ fun NavGraph(
                 pref = pref,
                 navController = navController,
                 userViewModel = userViewModel,
+                createTransactionViewModel = createTransactionViewModel,
                 createUserClothViewModel = createUserClothViewModel,
                 onContinueClick = {
                     scope.launch {
@@ -399,17 +400,6 @@ fun NavGraph(
         }
     }
 
-//    LaunchedEffect(navController) {
-//        val token = pref.getToken().first()
-//        navController.addOnDestinationChangedListener { _, _, _ ->
-//            if (token == null) {
-//                navController.navigate(Screen.Welcome.route) {
-//                    popUpTo(Screen.Home.route) { inclusive = true }
-//                }
-//            }
-//        }
-//    }
-
     LaunchedEffect(Unit) {
         when (pref.getToken().first()) {
             null -> navController.navigate(Screen.Welcome.route) {
@@ -458,6 +448,7 @@ fun SheetContent(
     pref: ReClothesPreference,
     navController: NavController,
     userViewModel: UserViewModel,
+    createTransactionViewModel: CreateTransactionViewModel,
     createUserClothViewModel: CreateUserClothViewModel,
     onContinueClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -526,6 +517,9 @@ fun SheetContent(
                 onContinueClick()
                 // Post Data
                 createUserClothViewModel.createUserCloth(userId, amountOfClothes)
+                if (radioStatus == 1){
+                    createTransactionViewModel.createTransaction()
+                }
             }
         )
     }

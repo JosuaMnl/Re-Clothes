@@ -3,6 +3,7 @@ package com.c23ps422.reclothes.ui.screen.auth
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -25,7 +26,7 @@ fun Welcome(
     navigateToLogin: () -> Unit,
 ) {
     LazyColumn(
-         modifier = modifier
+        modifier = modifier
             .padding(horizontal = 14.dp, vertical = 64.dp)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -56,14 +57,28 @@ fun Welcome(
             Spacer(modifier = Modifier.height(16.dp))
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                OutlinedButton(onClick = navigateToRegister) {
-                    Text(text = stringResource(id = R.string.welcome_register))
+                Box(modifier = Modifier.weight(1f)) {
+                    OutlinedButton(
+                        onClick = navigateToRegister,
+                        shape = RoundedCornerShape(20),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(text = stringResource(id = R.string.welcome_register))
+                    }
                 }
-                Button(onClick = navigateToLogin) {
-                    Text(text = stringResource(id = R.string.welcome_login))
+                Box(modifier = Modifier.weight(1f)) {
+                    Button(
+                        onClick = navigateToLogin,
+                        shape = RoundedCornerShape(20),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(text = stringResource(id = R.string.welcome_login))
+                    }
                 }
             }
+
         }
     }
 }

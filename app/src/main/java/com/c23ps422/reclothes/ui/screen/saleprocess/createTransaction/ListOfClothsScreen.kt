@@ -1,6 +1,5 @@
 package com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,9 +27,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -51,7 +49,6 @@ import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.ui.navigation.Screen
 import com.c23ps422.reclothes.ui.screen.saleprocess.clothesIdentity.ClothesIdentityViewModel
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
-import kotlinx.coroutines.launch
 
 data class ClothesItem(
     val clothImage: String,
@@ -68,7 +65,6 @@ fun ListOfClothes(
     navController: NavController
 ) {
     clothesIdentityViewModel.clothes.collectAsState().value.let { data ->
-        Log.d("ListOfClothesEffect", "Data List: $data")
         ClothItemContent(
             createTransactionItemViewModel = createTransactionItemViewModel,
             createTransactionViewModel = createTransactionViewModel,
@@ -85,9 +81,7 @@ fun ClothItemContent(
     listOfClothes: List<ClothesItem>,
     navController: NavController
 ) {
-    var transaction_id by remember { mutableStateOf("") }
-
-    Log.d("ClothItemContent", "ClothItemContent: Data List Di COntent $listOfClothes ")
+    var transactionId by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     Scaffold(
@@ -140,11 +134,10 @@ fun ClothItemContent(
         }
     }
 
-    val scope = rememberCoroutineScope()
     var transactionIsCreated by remember { mutableStateOf(false) }
 
     createTransactionViewModel.transactionId.collectAsState().value.let { id ->
-        transaction_id = id
+        transactionId = id
     }
 
     createTransactionViewModel.uiState.collectAsState().value.let { uiState ->
@@ -156,29 +149,22 @@ fun ClothItemContent(
                 }
             }
 
+            // Untuk saat ini, hanya bisa mengirim 1 item
             is UiState.Success -> {
-                if (transaction_id.isNotEmpty() && !transactionIsCreated) {
+                if (transactionId.isNotEmpty() && !transactionIsCreated) {
                     createTransactionItemViewModel.createTransactionItem(
-                        transaction_id,
+                        transactionId,
                         listOfClothes[0].id
-                    )
-                    Log.d(
-                        "List Of Clothes",
-                        "ClothItemContent: Nih item $transaction_id, ${listOfClothes[0].id}"
                     )
                     transactionIsCreated = true
                 }
                 LaunchedEffect(uiState) {
                     navController.navigate(Screen.DataAllClothes.route)
-                    Log.d(
-                        "List Of Clothes",
-                        "ClothItemContent: Berhasil Post Transaction ${uiState.data.data.transaction}"
-                    )
                 }
             }
 
             is UiState.Error -> {
-
+                Toast.makeText(context, stringResource(id = R.string.lio_failed_save_item), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -217,7 +203,6 @@ fun ClothItem(
             }
         }
     }
-
 }
 
 @Preview

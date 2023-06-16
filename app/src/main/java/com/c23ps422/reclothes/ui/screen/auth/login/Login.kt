@@ -2,6 +2,7 @@ package com.c23ps422.reclothes.ui.screen.auth.login
 
 import android.app.Application
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -110,7 +111,7 @@ fun Login(
                 Spacer(modifier = Modifier.height(64.dp))
                 Image(
                     painter = painterResource(R.drawable.logo),
-                    contentDescription = "ReClothes",
+                    contentDescription = stringResource(R.string.lg_photo_desc),
                     modifier = Modifier
                         .padding(horizontal = 14.dp)
                         .fillMaxWidth()
@@ -129,7 +130,7 @@ fun Login(
                     onValueChange = { txt ->
                         email = txt
                     },
-                    label = "Email",
+                    label = stringResource(R.string.lg_email),
                     painterResource = painterResource(id = R.drawable.icon_email),
                     trailingIcon = {}
                 )
@@ -139,7 +140,7 @@ fun Login(
                     onValueChange = { txt ->
                         password = txt
                     },
-                    label = "Password",
+                    label = stringResource(R.string.lg_password),
                     painterResource = painterResource(id = R.drawable.icon_password),
                     trailingIcon = {
                         val iconImage = if (passwordVisible) {
@@ -147,11 +148,11 @@ fun Login(
                         } else {
                             Icons.Filled.Visibility
                         }
-                        
+
                         val description = if (passwordVisible) {
-                            "Hide Password"
+                            stringResource(R.string.lg_hd_pwd)
                         } else {
-                            "Show Password"
+                            stringResource(R.string.lg_sw_pwd)
                         }
 
                         IconButton(onClick = { passwordVisible = !passwordVisible}) {
@@ -183,16 +184,13 @@ fun Login(
 
             is UiState.Success -> {
                 scope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(uiState.data.message)
-                    delay(200)
                     navController.navigate(Screen.Home.route)
                 }
+                Toast.makeText(context, stringResource(id = R.string.lg_success), Toast.LENGTH_SHORT).show()
             }
 
             is UiState.Error -> {
-                scope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(uiState.errorMessage)
-                }
+                Toast.makeText(context, stringResource(id = R.string.lg_error), Toast.LENGTH_SHORT).show()
             }
         }
     }

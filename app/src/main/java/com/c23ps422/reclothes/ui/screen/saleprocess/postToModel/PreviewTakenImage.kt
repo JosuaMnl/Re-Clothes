@@ -1,13 +1,28 @@
 package com.c23ps422.reclothes.ui.screen.saleprocess.postToModel
 
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -27,6 +42,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -104,23 +120,28 @@ fun PreviewTakenImage(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(9f / 16f)
-                    .clip(RoundedCornerShape(8.dp))
-            ) {
-                if (photo != null) {
-                    val photoUri = Uri.fromFile(photo)
-                    Image(
-                        painter = rememberAsyncImagePainter(photoUri),
-                        contentDescription = stringResource(R.string.pti_photo_desc),
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+            if (photo != null) {
+                val photoUri = Uri.fromFile(photo)
+                Image(
+                    painter = rememberAsyncImagePainter(photoUri),
+                    contentDescription = stringResource(R.string.pti_note),
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(360.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                )
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = stringResource(R.string.pti_note),
+                style = MaterialTheme.typography.h6.copy(
+                    fontWeight = FontWeight.Light,
+                    fontSize = 12.sp
+                ),
+            )
             Spacer(modifier = Modifier.height(16.dp))
 
             Row(
@@ -141,14 +162,11 @@ fun PreviewTakenImage(
                             postToModelViewModel.createClothImage(compressedPhoto!!, idCloth)
                         }
                     }) {
-                    Text(stringResource(R.string.btn_continue))
+                    Text(stringResource(R.string.pti_continue), textAlign = TextAlign.Justify)
                 }
             }
         }
     }
-
-
-    // Don't change the code below, it's the logic part
 
     val scope = rememberCoroutineScope()
     postToModelViewModel.uiState.collectAsState().value.let { uiState ->
@@ -162,9 +180,8 @@ fun PreviewTakenImage(
             }
 
             is UiState.Success -> {
+                Toast.makeText(context, stringResource(id = R.string.pti_success), Toast.LENGTH_SHORT).show()
                 LaunchedEffect(uiState) {
-                    Log.d("PreviewTakenImage", "FotoModelUrl: ${uiState.data.data.defectsImageUrl}")
-                    Toast.makeText(context, uiState.data.meta.status, Toast.LENGTH_SHORT).show()
                     scope.launch {
                         navController.navigate(Screen.ClothesIdentity.route)
                     }

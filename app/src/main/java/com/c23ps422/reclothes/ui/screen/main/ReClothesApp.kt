@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
@@ -266,7 +265,7 @@ fun NavGraph(
                 }
 
                 composable(Screen.Transaction.route) {
-
+                    TransactionScreen()
                 }
 
                 composable(Screen.Medals.route) {
@@ -304,7 +303,6 @@ fun NavGraph(
                         cameraExecutor = cameraExecutor,
                         onImageCaptured = { file ->
                             capturedImage = file
-                            Log.d("Navigation", "Navigating to PreviewTakenImage with URI: $file")
                             Handler(Looper.getMainLooper()).post {
                                 navController.navigate(Screen.PreviewTakenImage.route)
                             }
@@ -350,7 +348,11 @@ fun NavGraph(
                     ClothesIdentity(
                         clothesIdentityViewModel = clothesIdentityViewModel,
                         navController = navController,
-                        postToModelViewModel = postToModelViewModel
+                        postToModelViewModel = postToModelViewModel,
+                        onCancel = {
+                            navController.navigate(Screen.Home.route)
+                        },
+
                     )
                 }
 

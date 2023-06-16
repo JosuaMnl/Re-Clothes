@@ -19,6 +19,7 @@
     <string name="in_progress">This feature is in progress</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_continue">Continue</string>
+    <string name="transaction">Transaction</string>
 
     <!-- String for HomeScreen -->
     <string name="hc_name">Welcome</string>
@@ -33,6 +34,15 @@
     <!-- String for Detect Screen -->
     <string name="ds_icon">Take Picture</string>
 
+    <!-- String for Login -->
+    <string name="lg_photo_desc">ReClothes Logo</string>
+    <string name="lg_email">Email</string>
+    <string name="lg_password">Password</string>
+    <string name="lg_hd_pwd">Hide Password</string>
+    <string name="lg_sw_pwd">Show Password</string>
+    <string name="lg_success">Login berhasil!</string>
+    <string name="lg_error">Login gagal!</string>
+
     <!-- String for Register -->
     <string name="rg_photo_desc">ReClothes Logo</string>
     <string name="rg_username">Username</string>
@@ -41,6 +51,8 @@
     <string name="rg_password_confirmation">Password Confirmation</string>
     <string name="rg_hd_pwd">Hide Password</string>
     <string name="rg_sw_pwd">Show Password</string>
+    <string name="rg_success">Register berhasil!</string>
+    <string name="rg_error">Register gagal!</string>
 
     <!-- String for ProfileContent -->
     <string name="pc_title">Your Profile</string>
@@ -68,6 +80,10 @@
 
     <!-- String for PreviewTakenImage -->
     <string name="pti_photo_desc">Preview Taken Image</string>
+    <string name="pti_cancel">Cancel</string>
+    <string name="pti_continue">Continue</string>
+    <string name="pti_note">Note: Dengan menekan tombol continue anda dapat melihat tingkat kerusakan dan tipe fabrik dari pakaian anda dengan menggunakan teknologi AI</string>
+    <string name="pti_success">Gambar berhasil diunggah!</string>
 
     <!-- String for ReBottomNavigation -->
     <string name="rbn_fab_desc">Floating Action Button</string>
@@ -107,5 +123,24 @@
     <!--   String for ListOfCLothes -->
     <string name="lio_add_clothes">Tambah Pakaian</string>
     <string name="lio_list_of_clothes">Daftar pakaian bekas yang ingin dijual :</string>
+    <string name="lio_failed_save_item">Gagal menyimpan item</string>
+
+    <!-- String for UserScreen-->
+    <string name="us_error">Data pengguna gagal diterima</string>
+
+    <!-- String for Clothes Identity -->
+    <string name="ciy_defect">Berikut adalah kerusakan pakaianmu :</string>
+    <string name="ciy_defect_image">Foto Kerusakan Pakaian</string>
+    <string name="ciy_fill_data">Isilah data dibawah ini :</string>
+    <string name="ciy_type_fabric">Jenis Bahan Pakaian : </string>
+    <string name="ciy_description">Description</string>
+    <string name="ciy_success">Data pakaian berhasil dibuat!</string>
+    <string name="ciy_error">Data pakaian gagal dibuat!</string>Data pakaian gagal dibuat!
+
+    <!-- String for Data All Clothes -->
+    <string name="dac_fill_data">Isilah data untuk mencakup seluruh pakaian bekas yang ingin dijual dibawah ini :</string>
+    <string name="dac_total_count_cloth">Jumlah Pakaian</string>
+    <string name="dac_weight">Berat</string>
+    <string name="dac_address">Alamat</string>
 
 </resources>

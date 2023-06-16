@@ -85,14 +85,14 @@ fun HomeContent(
                 fontWeight = FontWeight.Bold
             )
             Row(
-                modifier = Modifier.padding(start = 14.dp, top = 16.dp)
+                modifier = Modifier.padding(start = 14.dp, top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 ReMisc(
                     name = stringResource(R.string.hc_money_title),
                     description = stringResource(R.string.hc_money_desc),
                     icon = Icons.Default.Payment
                 )
-                Spacer(modifier = Modifier.width(16.dp))
                 ReMisc(
                     name = stringResource(R.string.hc_exp_title),
                     description = stringResource(R.string.hc_exp_desc),

@@ -11,11 +11,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -69,7 +65,7 @@ fun ReBottomNavigation(navController: NavHostController, modifier: Modifier = Mo
             ),
             NavigationItem(
                 title = stringResource(R.string.menu_transaction),
-                icon = Icons.Default.Menu,
+                icon = Icons.Default.Receipt,
                 screen = Screen.Transaction
             ),
             NavigationItem(

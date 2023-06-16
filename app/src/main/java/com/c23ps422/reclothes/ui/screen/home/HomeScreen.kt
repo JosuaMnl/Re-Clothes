@@ -9,8 +9,14 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -20,24 +26,43 @@ import com.c23ps422.reclothes.R
 import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.model.diy.DIY
 import com.c23ps422.reclothes.model.medals.Medals
+import com.c23ps422.reclothes.pref.ReClothesPreference
 import com.c23ps422.reclothes.ui.components.ReCard
 import com.c23ps422.reclothes.ui.components.ReMisc
 import com.c23ps422.reclothes.ui.components.ReSearchBar
 import com.c23ps422.reclothes.ui.screen.diy.DIYViewModel
 import com.c23ps422.reclothes.ui.screen.medals.MedalsViewModel
+import com.c23ps422.reclothes.ui.screen.profile.UserViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
+    pref: ReClothesPreference,
+    userViewModel: UserViewModel,
     medalsViewModel: MedalsViewModel = viewModel(
         factory = MedalsViewModel.provideFactory()
     ),
     diyViewModel: DIYViewModel = viewModel(
         factory = DIYViewModel.provideFactory()
     ),
-    username: String,
     navigateToDetail: (Int) -> Unit
 ) {
+    var username by rememberSaveable {
+        mutableStateOf("")
+    }
+
+    LaunchedEffect(Unit) {
+        val token = pref.getToken().firstOrNull()
+        if (token != null && userViewModel.username.value.isEmpty()) {
+            userViewModel.getUser(token)
+        }
+    }
+
+    userViewModel.username.collectAsState().value.let {
+        username = it
+    }
     val diyState by diyViewModel.uiState.collectAsState(initial = UiState.Loading)
     val medalsState by medalsViewModel.uiState.collectAsState(initial = UiState.Loading)
 
@@ -76,7 +101,7 @@ fun HomeContent(
     LazyColumn {
         item {
             Text(
-                text = stringResource(R.string.hc_name),
+                text = stringResource(R.string.hc_name) + " $username",
                 modifier = modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
             )
             Text(
@@ -84,26 +109,31 @@ fun HomeContent(
                 modifier = modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
                 fontWeight = FontWeight.Bold
             )
-            Row(
-                modifier = Modifier.padding(start = 14.dp, top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ReMisc(
-                    name = stringResource(R.string.hc_money_title),
-                    description = stringResource(R.string.hc_money_desc),
-                    icon = Icons.Default.Payment
-                )
-                ReMisc(
-                    name = stringResource(R.string.hc_exp_title),
-                    description = stringResource(R.string.hc_exp_desc),
-                    icon = Icons.Default.TrendingUp
-                )
+            Spacer(modifier = Modifier.height(16.dp))
+            Column(modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    ReMisc(
+                        name = stringResource(R.string.hc_money_title),
+                        description = stringResource(R.string.hc_money_desc),
+                        icon = Icons.Default.Payment
+                    )
+                    ReMisc(
+                        name = stringResource(R.string.hc_exp_title),
+                        description = stringResource(R.string.hc_exp_desc),
+                        icon = Icons.Default.TrendingUp
+                    )
+                }
             }
+
             ReSearchBar(query = "", onQueryChange = {})
         }
 
         item {
-            Column(modifier.padding(16.dp)) {
+            Column(modifier.padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)) {
                 Text(
                     text = stringResource(R.string.hc_diy),
                     fontWeight = FontWeight.Bold
@@ -127,7 +157,7 @@ fun HomeContent(
         }
 
         item {
-            Column(modifier.padding(16.dp)) {
+            Column(modifier.padding(top = 4.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)) {
                 Text(
                     text = stringResource(R.string.hc_achievement),
                     fontWeight = FontWeight.Bold
@@ -137,7 +167,7 @@ fun HomeContent(
                         .padding(top = 8.dp)
                 ) {
                     items(medals) { item ->
-                        ReCard(item.photoUrl, item.title, "")
+                        ReCard(item.photoUrl, item.title, item.xp)
                         Spacer(modifier = Modifier.width(8.dp))
                     }
                 }

@@ -22,7 +22,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.model.response.UserData
 import com.c23ps422.reclothes.model.response.UserMeta
@@ -31,9 +33,14 @@ import com.c23ps422.reclothes.ui.components.ReButtonFullRounded
 import com.c23ps422.reclothes.ui.components.ReTextField
 import com.c23ps422.reclothes.ui.theme.ReClothesTheme
 import com.c23ps422.reclothes.R
+import com.c23ps422.reclothes.pref.ReClothesPreference
+import com.c23ps422.reclothes.ui.navigation.Screen
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileContent(
+    navController: NavController,
+    pref: ReClothesPreference,
     modifier: Modifier = Modifier,
     userInfo: UserProfileResponse
 ) {
@@ -50,6 +57,8 @@ fun ProfileContent(
         factory = UserViewModel.provideFactory(context)
     )
 
+    val scope = rememberCoroutineScope()
+
     Box(
         modifier = modifier
             .padding(16.dp)
@@ -61,7 +70,8 @@ fun ProfileContent(
                 Text(
                     text = stringResource(R.string.pc_title),
                     style = MaterialTheme.typography.subtitle1.copy(
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp
                     )
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -135,7 +145,22 @@ fun ProfileContent(
                     .height(42.dp),
                     shape = RoundedCornerShape(50.dp),
                     onClick = {
+                        scope.launch {
+                            pref.clearToken()
+                            pref.clearId()
+                            navController.apply {
+                                // navigate to 'Welcome'
+                                navigate(Screen.Welcome.route) {
+                                    // Pop up to the start destination (home screen) before navigating.
+                                    popUpTo(graph.startDestinationId) {
+                                        inclusive = true // Whether to include the start destination itself
+                                    }
+                                    // Specify the new navigation stack
+                                    launchSingleTop = true
+                                }
+                            }
 
+                        }
                     })
                 {
                     Text(stringResource(R.string.pc_logout))
@@ -173,33 +198,33 @@ fun ProfileContent(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProfileContentPreview() {
-    val userProfile = UserProfileResponse(
-        data = UserData(
-            name = "Test User",
-            email = "testuser@gmail.com",
-            phoneNumber = "123-456-7890",
-            address = "123, Test Street, Test City, Test State",
-            accountNumber = "1234567890",
-            createdAt = "Now",
-            emailVerifiedAt = "",
-            id = "",
-            updatedAt = "",
-            accountType = "",
-            roles = ""
-        ),
-        meta = UserMeta(
-            code = 200,
-            message = "Yoi",
-            status = "Success"
-        )
-    )
-
-    ReClothesTheme {
-        ProfileContent(
-            userInfo = userProfile
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ProfileContentPreview() {
+//    val userProfile = UserProfileResponse(
+//        data = UserData(
+//            name = "Test User",
+//            email = "testuser@gmail.com",
+//            phoneNumber = "123-456-7890",
+//            address = "123, Test Street, Test City, Test State",
+//            accountNumber = "1234567890",
+//            createdAt = "Now",
+//            emailVerifiedAt = "",
+//            id = "",
+//            updatedAt = "",
+//            accountType = "",
+//            roles = ""
+//        ),
+//        meta = UserMeta(
+//            code = 200,
+//            message = "Yoi",
+//            status = "Success"
+//        )
+//    )
+//
+//    ReClothesTheme {
+//        ProfileContent(
+//            userInfo = userProfile
+//        )
+//    }
+//}

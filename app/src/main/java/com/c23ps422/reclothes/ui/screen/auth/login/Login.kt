@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -183,10 +184,13 @@ fun Login(
             }
 
             is UiState.Success -> {
-                scope.launch {
-                    navController.navigate(Screen.Home.route)
+                LaunchedEffect(uiState) {
+                    scope.launch {
+                        navController.navigate(Screen.Home.route)
+                    }
+                    Toast.makeText(context, "Login berhasil!", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(context, stringResource(id = R.string.lg_success), Toast.LENGTH_SHORT).show()
+
             }
 
             is UiState.Error -> {

@@ -22,17 +22,44 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Circle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.c23ps422.reclothes.ui.theme.ReClothesTheme
+import androidx.navigation.NavController
+import com.c23ps422.reclothes.R
+import com.c23ps422.reclothes.helper.formatMoney
+import com.c23ps422.reclothes.ui.navigation.Screen
 
 @Composable
-fun PriceRecommendation() {
+fun PriceRecommendation(
+    navController: NavController,
+    updateTransactionViewModel: UpdateTransactionViewModel
+) {
+    var price by remember {
+        mutableStateOf("")
+    }
+    var weight by remember {
+        mutableStateOf("")
+    }
+    var quantity by remember {
+        mutableStateOf("")
+    }
+
+    updateTransactionViewModel.transaction.collectAsState().value.let { data ->
+        price = formatMoney(data.price)
+        weight = data.weight
+        quantity = data.quantity
+    }
+
     Scaffold(
         topBar = {
             IconButton(
@@ -56,7 +83,7 @@ fun PriceRecommendation() {
         ) {
             item {
                 Text(
-                    text = "Rincian pakaian bekas yang ingin dijual :",
+                    text = stringResource(id = R.string.pr_detail),
                     style = MaterialTheme.typography.subtitle2.copy(
                         fontWeight = FontWeight.Medium,
                         fontSize = 18.sp
@@ -73,7 +100,7 @@ fun PriceRecommendation() {
                         modifier = Modifier.size(10.dp)
                     )
                     Text(
-                        text = "Jumlah pakaian : 2 pcs",
+                        text = "Jumlah pakaian : $quantity pcs",
                         style = MaterialTheme.typography.subtitle2.copy(
                             fontWeight = FontWeight.Normal,
                             fontSize = 18.sp
@@ -91,7 +118,7 @@ fun PriceRecommendation() {
                         modifier = Modifier.size(10.dp)
                     )
                     Text(
-                        text = "Berat pakaian : 4 kg",
+                        text = "Berat pakaian : $weight kg",
                         style = MaterialTheme.typography.subtitle2.copy(
                             fontWeight = FontWeight.Normal,
                             fontSize = 18.sp
@@ -112,7 +139,7 @@ fun PriceRecommendation() {
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "Rp. 150.000",
+                        text = "$price",
                         style = MaterialTheme.typography.h3.copy(
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
@@ -122,7 +149,7 @@ fun PriceRecommendation() {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "Note : Harga bisa berubah setelah pakaian bekas divalidasi oleh tim Re-Clothes",
+                    text = stringResource(id = R.string.pr_note),
                     style = MaterialTheme.typography.h6.copy(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Light,
@@ -136,12 +163,14 @@ fun PriceRecommendation() {
                     OutlinedButton(modifier = Modifier
                         .height(42.dp),
                         shape = RoundedCornerShape(50.dp), onClick = { }) {
-                        Text(text = "Cancel")
+                        Text(text = stringResource(id = R.string.btn_cancel))
                     }
                     Button(modifier = Modifier
                         .height(42.dp),
-                        shape = RoundedCornerShape(50.dp), onClick = {}) {
-                        Text(text = "Continue")
+                        shape = RoundedCornerShape(50.dp), onClick = {
+                            navController.navigate(Screen.TransactionStatus.route)
+                        }) {
+                        Text(text = stringResource(id = R.string.btn_continue))
                     }
                 }
             }
@@ -149,10 +178,10 @@ fun PriceRecommendation() {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun PriceRecommendationPreview() {
-    ReClothesTheme {
-        PriceRecommendation()
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun PriceRecommendationPreview() {
+//    ReClothesTheme {
+//        PriceRecommendation()
+//    }
+//}

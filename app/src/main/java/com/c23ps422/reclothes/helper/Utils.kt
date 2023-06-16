@@ -4,6 +4,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.io.File
 import java.io.FileOutputStream
+import java.text.DateFormat
+import java.text.NumberFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 /**
  * Compresses the given image file and returns the compressed file.
@@ -44,4 +50,27 @@ fun compressImage(file: File?): File? {
     return compressedFile
 }
 
+fun formatMoney(amount: Int): String {
+    val format: NumberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+    return format.format(amount)
+}
 
+
+fun formatDate(currentDate: String): String? {
+    val currentFormat = "yyyy-MM-dd'T'hh:mm:ss.SSSSSS'Z'"
+    val targetFormat = "dd MMM yyyy | HH:mm"
+    val timezone = "GMT"
+    val currentDf: DateFormat = SimpleDateFormat(currentFormat, Locale.getDefault())
+    currentDf.timeZone = TimeZone.getTimeZone(timezone)
+    val targetDf: DateFormat = SimpleDateFormat(targetFormat, Locale.getDefault())
+    var targetDate: String? = null
+    try {
+        val date = currentDf.parse(currentDate)
+        if (date != null) {
+            targetDate = targetDf.format(date)
+        }
+    } catch (ex: ParseException) {
+        ex.printStackTrace()
+    }
+    return targetDate
+}

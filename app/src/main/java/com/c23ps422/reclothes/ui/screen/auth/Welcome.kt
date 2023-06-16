@@ -1,5 +1,7 @@
 package com.c23ps422.reclothes.ui.screen.auth
 
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +28,13 @@ fun Welcome(
     navigateToRegister: () -> Unit,
     navigateToLogin: () -> Unit,
 ) {
+
+    val activity = LocalContext.current as? Activity
+
+    BackHandler {
+        activity?.finish()
+    }
+
     LazyColumn(
         modifier = modifier
             .padding(horizontal = 14.dp, vertical = 64.dp)
@@ -52,6 +62,7 @@ fun Welcome(
                 text = stringResource(R.string.welcome_description),
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Light,
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -62,8 +73,8 @@ fun Welcome(
                 Box(modifier = Modifier.weight(1f)) {
                     OutlinedButton(
                         onClick = navigateToRegister,
-                        shape = RoundedCornerShape(20),
-                        modifier = Modifier.fillMaxWidth()
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier.fillMaxWidth().height(42.dp)
                     ) {
                         Text(text = stringResource(id = R.string.welcome_register))
                     }
@@ -71,8 +82,8 @@ fun Welcome(
                 Box(modifier = Modifier.weight(1f)) {
                     Button(
                         onClick = navigateToLogin,
-                        shape = RoundedCornerShape(20),
-                        modifier = Modifier.fillMaxWidth()
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier.fillMaxWidth().height(42.dp)
                     ) {
                         Text(text = stringResource(id = R.string.welcome_login))
                     }

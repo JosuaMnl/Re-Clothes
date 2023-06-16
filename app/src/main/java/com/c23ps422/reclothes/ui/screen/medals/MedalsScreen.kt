@@ -1,5 +1,6 @@
 package com.c23ps422.reclothes.ui.screen.medals
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,7 +24,6 @@ import com.c23ps422.reclothes.helper.ViewModelFactory
 
 @Composable
 fun MedalsScreen(
-    modifier: Modifier = Modifier,
     viewModel: MedalsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
         factory = ViewModelFactory.getInstance(Injection.provideMedalsRepository())
     )
@@ -47,7 +47,7 @@ fun MedalsScreen(
 
 @Composable
 fun MedalsContent(modifier: Modifier = Modifier, medals: List<Medals>) {
-    LazyColumn(modifier = Modifier.padding(16.dp)) {
+    LazyColumn(contentPadding = PaddingValues(16.dp)) {
         item {
             Text(
                 text = stringResource(R.string.ms_title),
@@ -55,6 +55,7 @@ fun MedalsContent(modifier: Modifier = Modifier, medals: List<Medals>) {
                 fontSize = 24.sp,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
+            Spacer(modifier = Modifier.height(8.dp))
         }
         items(medals) { medal ->
             ReMedal(

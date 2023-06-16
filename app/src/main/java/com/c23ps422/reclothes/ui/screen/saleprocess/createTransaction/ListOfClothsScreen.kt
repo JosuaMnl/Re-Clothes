@@ -151,14 +151,14 @@ fun ClothItemContent(
 
             // Untuk saat ini, hanya bisa mengirim 1 item
             is UiState.Success -> {
-                if (transactionId.isNotEmpty() && !transactionIsCreated) {
-                    createTransactionItemViewModel.createTransactionItem(
-                        transactionId,
-                        listOfClothes[0].id
-                    )
-                    transactionIsCreated = true
-                }
                 LaunchedEffect(uiState) {
+                    if (transactionId.isNotEmpty() && !transactionIsCreated) {
+                        createTransactionItemViewModel.createTransactionItem(
+                            transactionId,
+                            listOfClothes[0].id
+                        )
+                        transactionIsCreated = true
+                    }
                     navController.navigate(Screen.DataAllClothes.route)
                 }
             }

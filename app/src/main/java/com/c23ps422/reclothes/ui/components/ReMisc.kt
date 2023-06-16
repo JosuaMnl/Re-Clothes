@@ -44,7 +44,8 @@ fun ReMisc(
                 )
                 Column(
                     Modifier.padding(start = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = name,

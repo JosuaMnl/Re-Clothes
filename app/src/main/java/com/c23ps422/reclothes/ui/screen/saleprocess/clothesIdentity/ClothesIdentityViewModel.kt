@@ -1,12 +1,11 @@
 package com.c23ps422.reclothes.ui.screen.saleprocess.clothesIdentity
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.di.Injection
+import com.c23ps422.reclothes.helper.UiState
 import com.c23ps422.reclothes.model.response.CreateClothResponse
 import com.c23ps422.reclothes.repository.ClothesIdentityRepository
 import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.ClothesItem
@@ -44,16 +43,9 @@ class ClothesIdentityViewModel(
                     clothImage = image
                 )
                 _clothes.value = _clothes.value + newCloth
-                Log.d("ClothesIdentityViewModel", "createCloth: ${_clothes.value}")
             }
         }
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("ClothesIdentityViewModel", "ViewModel cleared!")
-    }
-
 
     companion object {
         fun provideFactory(

@@ -23,12 +23,19 @@ class UserViewModel(
         MutableStateFlow(UiState.Idle)
     val uiState2: StateFlow<UiState<UserProfileResponse>> get() = _uiState2
 
-    fun getUser() {
-        viewModelScope.launch {
-            repository.getUser().catch { e ->
-                _uiState.value = UiState.Error(e.message.toString())
-            }.collect { data ->
-                _uiState.value = UiState.Success(data)
+    private val _username: MutableStateFlow<String> =
+        MutableStateFlow("")
+    val username: StateFlow<String> get() = _username
+
+    fun getUser(token: String) {
+        if (token.isNotEmpty()) {
+            viewModelScope.launch {
+                repository.getUser().catch { e ->
+                    _uiState.value = UiState.Error(e.message.toString())
+                }.collect { data ->
+                    _uiState.value = UiState.Success(data)
+                    _username.value = data.data.name
+                }
             }
         }
     }
@@ -62,12 +69,6 @@ class UserViewModel(
         get() = when (val state = uiState.value) {
             is UiState.Success -> state.data.data.id
             else -> "userId Not fetched!"
-        }
-
-    val username: String
-        get() = when (val state = uiState.value) {
-            is UiState.Success -> state.data.data.name
-            else -> "name not fetched!"
         }
 
     companion object {

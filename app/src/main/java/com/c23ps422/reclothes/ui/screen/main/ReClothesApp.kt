@@ -54,6 +54,9 @@ import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.Transactio
 import com.c23ps422.reclothes.ui.screen.saleprocess.clothesIdentity.ClothesIdentityViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.CreateTransactionItemViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.CreateTransactionViewModel
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.GetTransactionViewModel
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.PriceRecommendation
+import com.c23ps422.reclothes.ui.screen.saleprocess.createTransaction.UpdateTransactionViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.DetectScreen
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PostToModelViewModel
 import com.c23ps422.reclothes.ui.screen.saleprocess.postToModel.PreviewTakenImage
@@ -163,6 +166,9 @@ fun NavGraph(
     val createTransactionItemViewModel: CreateTransactionItemViewModel =
         viewModel(factory = CreateTransactionItemViewModel.provideFactory(context))
 
+    val updateTransactionViewModel: UpdateTransactionViewModel =
+        viewModel(factory = UpdateTransactionViewModel.provideFactory(context))
+
     val activity = context.findActivity()
 
     val currentDestination = navBackStackEntry?.destination
@@ -184,7 +190,9 @@ fun NavGraph(
         Screen.TakeImage.route,
         Screen.PreviewTakenImage.route,
         Screen.ClothesIdentity.route,
-        Screen.ListOfClothes.route
+        Screen.ListOfClothes.route,
+        Screen.TransactionStatus.route,
+        Screen.PriceRecommendation.route
     )
 
     var showBottomBarFab by remember {
@@ -254,14 +262,20 @@ fun NavGraph(
             ) {
                 composable(Screen.Home.route) {
                     HomeScreen(
-                        username = userViewModel.username,
+                        pref = pref,
+                        userViewModel = userViewModel,
                         navigateToDetail = { diyId ->
                             navController.navigate(Screen.DetailDIY.createRoute(diyId))
                         }
                     )
                 }
+
                 composable(Screen.UserScreen.route) {
-                    UserScreen()
+                    UserScreen(
+                        userViewModel = userViewModel,
+                        navController = navController,
+                        pref = pref
+                    )
                 }
 
                 composable(Screen.Transaction.route) {
@@ -273,7 +287,11 @@ fun NavGraph(
                 }
 
                 composable(Screen.DataAllClothes.route) {
-                    DataAllClothesScreen()
+                    DataAllClothesScreen(
+                        createTransactionViewModel = createTransactionViewModel,
+                        updateTransactionViewModel = updateTransactionViewModel,
+                        navController = navController
+                    )
                 }
 
                 composable(Screen.PreviewTakenImage.route) {
@@ -333,7 +351,13 @@ fun NavGraph(
                 }
 
                 composable(Screen.TransactionStatus.route) {
-                    TransactionStatus(onBackPressed = {})
+                    TransactionStatus(
+                        updateTransactionViewModel = updateTransactionViewModel,
+                        onBackPressed = {},
+                        onBackHome = {
+                            navController.navigate(Screen.Home.route)
+                        }
+                    )
                 }
 
                 composable(Screen.Login.route) {
@@ -353,7 +377,7 @@ fun NavGraph(
                             navController.navigate(Screen.Home.route)
                         },
 
-                    )
+                        )
                 }
 
                 composable(Screen.ListOfClothes.route) {
@@ -364,9 +388,27 @@ fun NavGraph(
                         createTransactionItemViewModel = createTransactionItemViewModel
                     )
                 }
+
+                composable(Screen.PriceRecommendation.route) {
+                    PriceRecommendation(
+                        navController = navController,
+                        updateTransactionViewModel = updateTransactionViewModel
+                    )
+                }
             }
         }
     }
+
+//    LaunchedEffect(navController) {
+//        val token = pref.getToken().first()
+//        navController.addOnDestinationChangedListener { _, _, _ ->
+//            if (token == null) {
+//                navController.navigate(Screen.Welcome.route) {
+//                    popUpTo(Screen.Home.route) { inclusive = true }
+//                }
+//            }
+//        }
+//    }
 
     LaunchedEffect(Unit) {
         when (pref.getToken().first()) {

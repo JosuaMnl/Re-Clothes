@@ -53,7 +53,7 @@ fun ReCard(
                 )
             )
             Text(
-                modifier = Modifier.padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 2.dp),
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
                 text = additionalDesc,
                 color = Color.White,
                 overflow = TextOverflow.Ellipsis,
@@ -72,7 +72,7 @@ fun ReCardPreview() {
         ReCard(
             "https://img.freepik.com/free-vector/hand-drawn-environmental-protection-illustration_23-2150089574.jpg?w=740&t=st=1686207756~exp=1686208356~hmac=09ad13f57384ffd42585b423e990bd45c57c15d49c27d534d85c93e03e823af3",
             "Stylish Bag",
-            "2.5 M"
+            "2.5 M Views"
         )
     }
 }

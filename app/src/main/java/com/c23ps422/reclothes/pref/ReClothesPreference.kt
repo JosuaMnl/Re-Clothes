@@ -51,6 +51,12 @@ class ReClothesPreference private constructor(private val dataStore: DataStore<P
         }
     }
 
+    suspend fun clearId() {
+        dataStore.edit { pref ->
+            pref.remove(ID_KEY)
+        }
+    }
+
     /**
      * The companion object declares a stringPreferencesKey for the token and a Singleton instance of ReClothesPreference.
      * It has a method to get the Singleton instance, initializing it if it doesn't already exist.

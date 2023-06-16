@@ -5,6 +5,8 @@ import com.c23ps422.reclothes.model.response.CreateClothResponse
 import com.c23ps422.reclothes.model.response.CreateTransactionItemResponse
 import com.c23ps422.reclothes.model.response.CreateTransactionResponse
 import com.c23ps422.reclothes.model.response.CreateUserClothResponse
+import com.c23ps422.reclothes.model.response.GetTransactionResponse
+import com.c23ps422.reclothes.model.response.UpdateTransactionResponse
 import com.c23ps422.reclothes.model.response.UploadClothResponse
 import com.c23ps422.reclothes.model.response.UserProfileResponse
 import okhttp3.MultipartBody
@@ -74,4 +76,18 @@ interface ApiService {
         @Field("transaction_id") transaction_id: String,
         @Field("cloth_id") cloth_id: String
     ): CreateTransactionItemResponse
+
+    @FormUrlEncoded
+    @PUT("transaction/update")
+    suspend fun updateTransaction(
+        @Field("transaction_id") transaction_id: String,
+        @Field("weight") weight: String,
+        @Field("quantity") quantity: String,
+        @Field("address") address: String,
+        @Field("status") status: String
+    ): UpdateTransactionResponse
+
+
+    @GET("api/transactions/?status=PENDING")
+    suspend fun getTransaction(): GetTransactionResponse
 }

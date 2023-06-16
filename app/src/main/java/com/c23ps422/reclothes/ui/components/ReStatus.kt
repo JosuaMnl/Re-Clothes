@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.c23ps422.reclothes.helper.formatDate
 
 @Composable
 fun ReStatus(
@@ -19,15 +20,22 @@ fun ReStatus(
     statusName: String,
     description: String
 ) {
-    Card(shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
+    Card(
+        shape = RoundedCornerShape(8.dp),
+        elevation = 8.dp,
+        modifier = modifier.fillMaxWidth()
+    ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.padding(16.dp)
         ) {
-            Text(
-                text = date,
-                style = MaterialTheme.typography.h6,
-                fontWeight = FontWeight.Bold,
-            )
+            formatDate(date)?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
             Column(
                 Modifier.padding(start = 4.dp, end = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -49,7 +57,7 @@ fun ReStatus(
 
 @Preview(showBackground = true)
 @Composable
-fun ReStatusPreview () {
+fun ReStatusPreview() {
     ReStatus(
         date = "21 May 2023",
         statusName = "On Progress",

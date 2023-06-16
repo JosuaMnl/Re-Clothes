@@ -181,9 +181,9 @@ fun ClothesIdentityContent(
             }
 
             is UiState.Success -> {
-                Toast.makeText(context, stringResource(id = R.string.ciy_success), Toast.LENGTH_SHORT).show()
                 LaunchedEffect(uiState) {
                     navController.navigate(Screen.ListOfClothes.route)
+                    Toast.makeText(context, "Data pakaian berhasil dibuat!", Toast.LENGTH_SHORT).show()
                 }
             }
 

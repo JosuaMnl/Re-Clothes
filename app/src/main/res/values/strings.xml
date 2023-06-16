@@ -20,14 +20,15 @@
     <string name="btn_cancel">Cancel</string>
     <string name="btn_continue">Continue</string>
     <string name="transaction">Transaction</string>
+    <string name="status">Status</string>
 
     <!-- String for HomeScreen -->
     <string name="hc_name">Welcome</string>
     <string name="hc_message">Yuk jual pakaian enggak terpakaimu!</string>
     <string name="hc_money_title">Uang</string>
-    <string name="hc_money_desc">Rp. 120.000</string>
+    <string name="hc_money_desc">Rp. 0</string>
     <string name="hc_exp_title">EXP</string>
-    <string name="hc_exp_desc">0 Xperience</string>
+    <string name="hc_exp_desc">0 Exp</string>
     <string name="hc_diy">Do it Yourself</string>
     <string name="hc_achievement">Achievements</string>
 
@@ -118,7 +119,7 @@
     <string name="ci_title">Silahkan pilih gambar pakaian bekas \n dari kamera atau ambil dari galeri</string>
     <string name="ci_camera">Camera</string>
     <string name="ci_gallery">Gallery</string>
-    <string name="ci_note">Note : Gambar yang dimasukkan hanya bisa satu</string>
+    <string name="ci_note">Note : Gambar yang dimasukkan hanya bisa satu dan foto pakaian. \nHarap pastikan Anda memotret pakaian dengan jarak 1 meter. </string>
 
     <!--   String for ListOfCLothes -->
     <string name="lio_add_clothes">Tambah Pakaian</string>
@@ -142,5 +143,9 @@
     <string name="dac_total_count_cloth">Jumlah Pakaian</string>
     <string name="dac_weight">Berat</string>
     <string name="dac_address">Alamat</string>
+
+    <!-- String for Price Recommendation -->
+    <string name="pr_note">Note : Harga bisa berubah setelah pakaian bekas divalidasi oleh tim Re-Clothes</string>
+    <string name="pr_detail">Rincian pakaian bekas yang ingin dijual :</string>
 
 </resources>

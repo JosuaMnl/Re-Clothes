@@ -1,6 +1,6 @@
 # Re-Clothes
 
-<h2> Project Brief (Backgrounder </h2>
+<h2> Project Brief (Backgrounder) </h2>
 <p>
 Machine Learning:
 We have developed a fabric-type classification model using TensorFlow's Convolutional Neural Network. This model's purpose is to classify inputted images into nine different classes: cotton, terrycloth, denim, fleece, nylon, polyester, silk, viscose, and wool. The model demonstrates excellent performance, achieving an accuracy rate of approximately 90%. It is capable of accurately distinguishing between the majority and minority classes.
